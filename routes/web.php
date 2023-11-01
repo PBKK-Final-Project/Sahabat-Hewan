@@ -26,5 +26,9 @@ Route::middleware('auth')->group(function () {
     
 });
 
+Route::get('/consult', function () {
+    return view('consult.consult');
+});
+
 
 require __DIR__.'/auth.php';
