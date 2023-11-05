@@ -1,6 +1,9 @@
 <?php
 
+use App\Events\MessageNotification;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,11 +27,31 @@ Route::middleware('auth')->group(function () {
         return view('landingPage.landingPage');
     });
     
+    Route::get('/consult', function () {
+        return view('consult.consult');
+    });
+    
+    Route::get('/chat', function () {
+        return view('chat.index');
+    });
+
+    Route::get('/mychat/{dokter_id}', [ChatController::class, 'myChat']);
+
+    Route::post('/mychat/{dokter_id}', [ChatController::class, 'store']);
+
+    Route::get('/dokter', [ChatController::class,'index']);
+
+    Route::get('/me', [UserController::class, 'me']);
+
+    Route::get('/dokter/{id}', [ChatController::class, 'show']);
+    
+
+    Route::post('/send-notification', [ChatController::class, 'sendNotification'])->middleware('web');
+
+    Route::get('/sender-receiver', [ChatController::class, 'senderReceiver']);
+
 });
 
-Route::get('/consult', function () {
-    return view('consult.consult');
-});
 
 
 require __DIR__.'/auth.php';
