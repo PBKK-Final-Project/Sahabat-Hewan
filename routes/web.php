@@ -27,9 +27,7 @@ Route::middleware('auth')->group(function () {
         return view('landingPage.landingPage');
     });
     
-    Route::get('/consult', function () {
-        return view('consult.consult');
-    });
+    Route::get('/consult', [UserController::class, 'index']);
     
     Route::get('/chat', function () {
         return view('chat.index');
@@ -49,6 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/send-notification', [ChatController::class, 'sendNotification'])->middleware('web');
 
     Route::get('/sender-receiver', [ChatController::class, 'senderReceiver']);
+
+    // Dokter page
+    Route::get('/dokter-detail/{id}', [UserController::class, 'show']);
 
 });
 

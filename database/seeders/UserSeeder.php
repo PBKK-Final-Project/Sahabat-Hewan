@@ -37,9 +37,9 @@ class UserSeeder extends Seeder
             'role_id' => 1,
         ]);
 
-        // foreach(range(1, 15) as $i)
-        // {
-        //     User::factory()->create();
-        // }
+        foreach(range(1, 20) as $i)
+        {
+            User::factory()->create();
+        }
     }
 }

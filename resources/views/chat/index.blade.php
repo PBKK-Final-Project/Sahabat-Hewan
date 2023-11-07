@@ -25,13 +25,14 @@
           .listen('.MessageNotification', (e) => {
             console.log('pengirim: ', sender, e.message);
             
-            var dokter_id = parseInt(e.message);
+            var dokter_id = parseInt(e.message);  
             $.ajax({
               url: `/dokter/${dokter_id}`,
               method: 'GET',
               success: function(data)
               {
                 var dokterData = data.data;
+                console.log("Dokter Data from ajax: ", dokterData);
 
                 $("#message-recent-inbox").text(e.pesan);
                 $("#sender-recent-inbox").text(dokterData.name);
@@ -48,7 +49,8 @@
 
                 $("#btn-recent-inbox").click(function() {  
                   $("#chat-container").removeClass('hidden');
-                  fetchAndDisplayChatData(url, dokter_id);
+                  console.log("clicked");
+                  fetchAndDisplayChatData(url, dokter_id);  
 
                 })
                 
@@ -147,6 +149,7 @@
         method: 'GET',
         success: function(data) {
             var chatDatas = data.data; 
+            console.log("reloaddddddddd");
             console.log("chat datas", chatDatas);
 
             var chatContainer = document.getElementById('chat-container');

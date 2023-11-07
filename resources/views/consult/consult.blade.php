@@ -1,7 +1,7 @@
 @extends('layouts.mainLayout')
 @section('content')
 
-<nav class="w-full flex flex-col sticky z-40">
+<nav class=" w-full flex flex-col fixed top-0 z-40">
   <div class="w-full h-[5rem] bg-white   px-10 py-6 flex flex-row justify-between items-center "> 
     <div class="flex flex-row justify-start items-center gap-x-2">
       <div class="w-[4.25rem] h-[4.25rem] ">
@@ -57,7 +57,7 @@
   </div>
 </nav>
 
-<div class="bg-white my-32 bg-cover bg-no-repeat w-full  z-10">
+<div class="bg-white mt-[400px] my-32 bg-cover bg-no-repeat w-full  z-10">
   <h1 class="font-rubik font-[700] text-[100px] text-black mx-auto text-center uppercase">
     let's <span class="text-[#B77CD7]">consult</span> 
   </h1>
@@ -70,15 +70,21 @@
         Health Issue
       </div>
       <p class="font-rubik px-10 font-[400] text-[25px] text-black">konsultasi tentang penyakit hewan anda...</p>
-      <div class="w-[324px] px-10 flex justify-center items-center font-inter font-[600] text-[#443E7C] text-[30px] bg-white rounded-lg">
+      <button  class="w-[324px] px-10 flex justify-center items-center font-inter font-[600] text-[#443E7C] text-[30px] bg-white rounded-lg">
         Consult
-      </div>
+      </button>
     </div>
   @endfor
 </div>
 
+@php
+  $loop = $dokters->count() / 4;
+  $loop = floor($loop);
+  $loop2 = 0;
+@endphp
+
 <div class="w-[90%] mx-auto px-20">
-  @for ($i = 0; $i < 3; $i++)
+  @for ($i = 0; $i < $loop; $i++)
     <div class="w-full flex flex-col justify-center items-start my-10">
       <div class="bg-[#303030] my-10 h-[50px] flex justify-center items-center font-rubik font-[500] text-white text-[25px] rounded-lg px-10">
         Recommendations
@@ -87,18 +93,21 @@
         @for ($j = 0; $j < 4; $j++)
           <div class="flex flex-col w-[300px] h-[450px] bg-[#D5DAF7] rounded-lg justify-center items-center gap-y-5 ">
             <div class="w-[215px] h-[305px] bg-white rounded-lg flex flex-col justify-center items-center gap-y-4">
-              <div class="w-[98px] h-[98px] rounded-full bg-[#F2F2F2] border border-black"></div>
+              <div class="w-[98px] h-[98px] bg-[url('/public/storage/images/{{$dokters[$loop2]->avatar}}')] bg-contain bg-no-repeat rounded-full bg-[#F2F2F2] border border-black"></div>
               <h1 class="font-rubik font-[500] text-black text-[25px] text-center">
-                dr. Dimas
+                {{ $dokters[$loop2]->nama }}
               </h1>
               <div class="w-[171px] h-[95px] bg-[#F2F2F2] rounded-xl overflow-auto font-rubik font-[500] text-black text-[15px] p-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis enim officia minima iste officiis blanditiis dignissimos expedita dicta, fuga aliquid corporis quas eos soluta quam aliquam aspernatur dolorem tempora delectus!
+                Lorem ipsum dolor sit amet   consectetur adipisicing elit. Perspiciatis enim officia minima iste officiis blanditiis dignissimos expedita dicta, fuga aliquid corporis quas eos soluta quam aliquam aspernatur dolorem tempora delectus!
               </div>
             </div>
-            <div class="flex justify-center items-center  h-[43px] bg-white font-rubik font-[600] text-black text-[20px] px-10 rounded-xl">
+            <button class="flex justify-center items-center  h-[43px] bg-white font-rubik font-[600] text-black text-[20px] px-10 rounded-xl">
               Consult Now!
-            </div>
+            </button>
           </div>
+          @php
+            $loop2++;
+          @endphp
         @endfor
       </div>
     </div>
