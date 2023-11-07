@@ -30,7 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/consult', function () {
         return view('consult.consult');
     });
+
+    Route::get('/academy', function() {
+        return view('academy.academy');
+    });
     
+
     Route::get('/chat', function () {
         return view('chat.index');
     });
