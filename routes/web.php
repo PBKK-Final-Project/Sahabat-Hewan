@@ -51,6 +51,9 @@ Route::middleware('auth')->group(function () {
     // Dokter page
     Route::get('/dokter-detail/{id}', [UserController::class, 'show']);
 
+    Route::get('/dokter-detail-data/{id}', [UserController::class, 'showData']);
+
+
 });
 
 
