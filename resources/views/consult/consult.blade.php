@@ -13,13 +13,13 @@
     </div>
   
     <div class="grid grid-cols-5 justify-items-center items-center w-[50%] mx-auto">
-      <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
+      <a href="/home" class="font-rubik font-[400] text-black text-[30px]">
         Home
       </a>
       <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
         Shop
       </a>
-      <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
+      <a href="/academy" class="font-rubik font-[400] text-black text-[30px]">
         Academy
       </a>
       <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
@@ -83,27 +83,30 @@
   $loop2 = 0;
 @endphp
 
+
 <div class="w-[90%] mx-auto px-20">
   @for ($i = 0; $i < $loop; $i++)
     <div class="w-full flex flex-col justify-center items-start my-10">
       <div class="bg-[#303030] my-10 h-[50px] flex justify-center items-center font-rubik font-[500] text-white text-[25px] rounded-lg px-10">
-        Recommendations
+        Recommendations {{$loop2}}
       </div>
       <div class="w-full flex flex-row  justify-between items-center">
         @for ($j = 0; $j < 4; $j++)
           <div class="flex flex-col w-[300px] h-[450px] bg-[#D5DAF7] rounded-lg justify-center items-center gap-y-5 ">
             <div class="w-[215px] h-[305px] bg-white rounded-lg flex flex-col justify-center items-center gap-y-4">
-              <div class="w-[98px] h-[98px] bg-[url('/public/storage/images/{{$dokters[$loop2]->avatar}}')] bg-contain bg-no-repeat rounded-full bg-[#F2F2F2] border border-black"></div>
+              <div class="w-[98px] h-[98px] rounded-full bg-[#F2F2F2] border border-black">
+                <img src="/storage/images/{{$dokters[$loop2]->avatar}}" class="object-contain bg-no-repeat" alt="">
+              </div>
               <h1 class="font-rubik font-[500] text-black text-[25px] text-center">
-                {{ $dokters[$loop2]->nama }}
+                {{ $dokters[$loop2]->name }}
               </h1>
               <div class="w-[171px] h-[95px] bg-[#F2F2F2] rounded-xl overflow-auto font-rubik font-[500] text-black text-[15px] p-2">
                 Lorem ipsum dolor sit amet   consectetur adipisicing elit. Perspiciatis enim officia minima iste officiis blanditiis dignissimos expedita dicta, fuga aliquid corporis quas eos soluta quam aliquam aspernatur dolorem tempora delectus!
               </div>
             </div>
-            <button class="flex justify-center items-center  h-[43px] bg-white font-rubik font-[600] text-black text-[20px] px-10 rounded-xl">
+            <a href="/dokter-detail/{{$dokters[$loop2]->id}}" class="flex justify-center items-center  h-[43px] bg-white font-rubik font-[600] text-black text-[20px] px-10 rounded-xl">
               Consult Now!
-            </button>
+            </a>
           </div>
           @php
             $loop2++;

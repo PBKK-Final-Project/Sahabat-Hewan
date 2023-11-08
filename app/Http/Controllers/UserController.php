@@ -33,9 +33,22 @@ class UserController extends Controller
         $id = (int) $id;
         $dokter = User::where('id', $id)->where('role_id', 1)->first();
 
-        dd($dokter->avatar);    
 
         return view('consult.dokter', ['dokter' => $dokter]);
     }
+
+    public function showData($id)
+    {
+        $id = (int) $id;
+        $dokter = User::where('id', $id)->where('role_id', 1)->first();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User Profile',
+            'code' => 200,
+            'data' => $dokter
+        ], 200);
+    }
+
 }
 
