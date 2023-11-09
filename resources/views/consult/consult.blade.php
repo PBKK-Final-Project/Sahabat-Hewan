@@ -78,7 +78,7 @@
 </div>
 
 @php
-  $loop = $dokters->count() / 4;
+  $loop = $consultations->count() / 4;
   $loop = floor($loop);
   $loop2 = 0;
 @endphp
@@ -95,16 +95,16 @@
           <div class="flex flex-col w-[300px] h-[450px] bg-[#D5DAF7] rounded-lg justify-center items-center gap-y-5 ">
             <div class="w-[215px] h-[305px] bg-white rounded-lg flex flex-col justify-center items-center gap-y-4">
               <div class="w-[98px] h-[98px] rounded-full bg-[#F2F2F2] border border-black">
-                <img src="/storage/images/{{$dokters[$loop2]->avatar}}" class="object-contain bg-no-repeat" alt="">
+                <img src="/storage/images/{{$consultations[$loop2]->dokters->avatar}}" class="object-contain bg-no-repeat" alt="">
               </div>
               <h1 class="font-rubik font-[500] text-black text-[25px] text-center">
-                {{ $dokters[$loop2]->name }}
+                {{ $consultations[$loop2]->dokters->name }}
               </h1>
               <div class="w-[171px] h-[95px] bg-[#F2F2F2] rounded-xl overflow-auto font-rubik font-[500] text-black text-[15px] p-2">
                 Lorem ipsum dolor sit amet   consectetur adipisicing elit. Perspiciatis enim officia minima iste officiis blanditiis dignissimos expedita dicta, fuga aliquid corporis quas eos soluta quam aliquam aspernatur dolorem tempora delectus!
               </div>
             </div>
-            <a href="/dokter-detail/{{$dokters[$loop2]->id}}" class="flex justify-center items-center  h-[43px] bg-white font-rubik font-[600] text-black text-[20px] px-10 rounded-xl">
+            <a href="/dokter-detail/{{$consultations[$loop2]->id}}" class="flex justify-center items-center  h-[43px] bg-white font-rubik font-[600] text-black text-[20px] px-10 rounded-xl">
               Consult Now!
             </a>
           </div>

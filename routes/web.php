@@ -2,6 +2,8 @@
 
 use App\Events\MessageNotification;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +29,7 @@ Route::middleware('auth')->group(function () {
         return view('landingPage.landingPage');
     });
     
-    Route::get('/consult', [UserController::class, 'index']);
+    Route::get('/consult', [ConsultationController::class, 'index']);
     
     Route::get('/chat', function () {
         return view('chat.index');
@@ -49,13 +51,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/sender-receiver', [ChatController::class, 'senderReceiver']);
 
     // Dokter page
-    Route::get('/dokter-detail/{id}', [UserController::class, 'show']);
+    Route::get('/dokter-detail/{id}', [ConsultationController::class, 'show']);
 
     Route::get('/dokter-detail-data/{id}', [UserController::class, 'showData']);
 
+    Route::post('/payment/{id}', [PaymentController::class, 'createPayment']);
+
+    Route::get('/payment-status/{id}', [PaymentController::class, 'paymentStatus']);
 
 });
 
 
+// Route::get('/consultation', [ConsultationController::class, 'index']);
 
 require __DIR__.'/auth.php';
