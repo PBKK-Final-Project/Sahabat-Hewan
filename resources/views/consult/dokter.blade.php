@@ -30,6 +30,7 @@ $.ajaxSetup({
           success: function(data)
           {
             url = data.payment_url;
+            console.log("url", url);
             window.open(url, '_blank');
           }
         })
