@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageNotification;
 use App\Models\Chat;
+use App\Models\Consultation;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -12,17 +14,41 @@ class ChatController extends Controller
 {
     public function index()
     {
-        $userId = auth()->user()->id;
+        $user = auth()->user();
+        $userId = $user->id;
+        if($user->role_id == 2)
+        {
+            $payments = Payment::where('user_id', $user->id)->where('status', 'paid')->get();
+    
+            $consultations = [];
+            foreach ($payments as $payment) {
+                $consultation = Consultation::where('id', $payment->consultation_id)->first();
+                array_push($consultations, $consultation);
+            }
+    
+            $doctors = [];
+            foreach ($consultations as $consultation) {
+                $doctor = User::where('id', $consultation->dokter_id)->first();
+                array_push($doctors, $doctor);
+            }
+        }
+        else if ($user->role_id == 1)
+        {
+            $doctors = User::join('chats', 'users.id', '=', 'chats.sender_id')
+                        ->where(function ($query) use ($userId) {
+                            $query->where('chats.sender_id', $userId) 
+                                ->orWhere('chats.receiver_id', $userId); 
+                        })
+                        ->where('users.id', '<>', $userId) 
+                        ->select('users.*')
+                        ->distinct()
+                        ->get();
+        }
+        
+        
 
-        $doctors = User::join('chats', 'users.id', '=', 'chats.sender_id')
-                    ->where(function ($query) use ($userId) {
-                        $query->where('chats.sender_id', $userId) 
-                            ->orWhere('chats.receiver_id', $userId); 
-                    })
-                    ->where('users.id', '<>', $userId) 
-                    ->select('users.*')
-                    ->distinct()
-                    ->get();
+
+
 
         return response()->json([
             'success' => true,
