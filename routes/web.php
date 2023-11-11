@@ -4,6 +4,7 @@ use App\Events\MessageNotification;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -60,14 +61,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment-status/{id}', [PaymentController::class, 'paymentStatus']);
 
     // shop page
-    Route::get('/shop', function () {
-        return view('shop.index');
-    });
+    Route::get('/shop', [ProductController::class, 'index']);
     
-    Route::get('/product-detail', function(){
-        return view('shop.product-detail');
-    });
+    Route::get('/product-detail/{id}', [ProductController::class, 'show']);
     
+    Route::get('/products/{categoryId}/{typeId}', [ProductController::class, 'showByCategoryAndType']);
+
+    Route::get('/products-search/{keyword}', [ProductController::class, 'search']);
+    Route::get('/products-search', [ProductController::class, 'getAllProducts']);
 
 });
 

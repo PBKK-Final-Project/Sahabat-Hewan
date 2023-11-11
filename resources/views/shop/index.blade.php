@@ -6,49 +6,217 @@
 
 let anjingOnclick = false;
 let kucingOnclick = false;
+let burungOnclick = false;
 $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
   });
   $(document).ready(function () {
-    // add dropdown if id anjing is clicked
+
     $('#anjing').click(function (e) { 
       e.preventDefault();
-
-      if(!anjingOnclick)
+      if(anjingOnclick == false)
       {
+        $('#dropdown-1').removeClass('hidden');
         anjingOnclick = true;
-        $('#dropdown-1').html(`
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Makanan Anjing</a>
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Obat Anjing</a>
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Aksesoris Anjing</a>
-        `);
-      } else 
-      {
-        anjingOnclick = false;
-        $('#dropdown-1').html('');
       }
-      
+      else
+      {
+        $('#dropdown-1').addClass('hidden');
+        anjingOnclick = false;
+      }
     });
 
     $('#kucing').click(function (e) { 
       e.preventDefault();
-
-      if(!kucingOnclick)
+      if(kucingOnclick == false)
       {
+        $('#dropdown-2').removeClass('hidden');
         kucingOnclick = true;
-        $('#dropdown-2').html(`
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Makanan kucing</a>
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Obat kucing</a>
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Aksesoris kucing</a>
-        `);
-      } else 
-      {
-        kucingOnclick = false;
-        $('#dropdown-2').html('');
       }
-      
+      else
+      {
+        $('#dropdown-2').addClass('hidden');
+        kucingOnclick = false;
+      }
+    });
+
+    $('#burung').click(function (e) { 
+      e.preventDefault();
+      if(burungOnclick == false)
+      {
+        $('#dropdown-3').removeClass('hidden');
+        burungOnclick = true;
+      }
+      else
+      {
+        $('#dropdown-3').addClass('hidden');
+        burungOnclick = false;
+      }
+    });
+   
+    function renderProducts(products, containerId) {
+      const productsContainer = document.getElementById(containerId);
+
+      products.forEach((product) => {
+        const productLink = document.createElement("a");
+        productLink.href = `/product-detail/${product.id}`;
+
+        const productCard = document.createElement("div");
+        productCard.className = "flex flex-col w-[288px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer";
+
+        const productImage = document.createElement("div");
+        productImage.className = "w-full h-[213px]";
+        const image = document.createElement("img");
+        image.src = `/images/${product.image}`;
+        image.className = "w-full h-full object-cover";
+        image.alt = product.shortname;
+        productImage.appendChild(image);
+
+        const productName = document.createElement("p");
+        productName.className = "font-rubik font-[300] text-[20px] text-black text-left px-2";
+        productName.textContent = product.name;
+
+        const productPrice = document.createElement("div");
+        productPrice.className = "w-full flex justify-start items-center";
+        const price = document.createElement("p");
+        price.className = "font-rubik font-[400] text-left px-2 text-[24px]";
+        price.textContent = `Rp. ${new Intl.NumberFormat("id-ID").format(product.price)}`;
+        productPrice.appendChild(price);
+
+        const productReviews = document.createElement("div");
+        productReviews.className = "w-full flex justify-start items-center";
+        const reviewCount = document.createElement("p");
+        reviewCount.className = "font-rubik font-[300] text-left px-2 text-[18px]";
+        reviewCount.textContent = `ulasan ${product.product_reviews.length}`;
+        productReviews.appendChild(reviewCount);
+
+        productCard.appendChild(productImage);
+        productCard.appendChild(productName);
+        productCard.appendChild(productPrice);
+        productCard.appendChild(productReviews);
+
+        productLink.appendChild(productCard);
+        productsContainer.appendChild(productLink);
+      });
+    }
+
+    function filerProduct(idProd, valueId)
+    {
+        console.log('clicked');
+        let id = $('#' + valueId).val();
+
+        // split id to get category id and sub category id
+        let idSplit = id.split('.');
+        let categoryId = idSplit[0];
+        let subCategoryId = idSplit[1];
+
+        console.log('category id', categoryId);
+        console.log('sub category id', subCategoryId);
+
+
+        $.ajax({
+          url: '/products/' + categoryId + '/' + subCategoryId,
+          method: 'GET',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Accept': 'application/json',
+          },
+          success: function(data)
+          {
+            console.log('success', data.data);
+            let products = data.data;
+            $('#products').html('');
+            renderProducts(products, 'products');
+                    
+          },
+          error: function(error)
+          {
+            console.log('error', error);
+          }
+        })
+    }
+
+    $('#makanan_anjing').click(function (e) { 
+      e.preventDefault();
+      filerProduct(1, 'id-makanan-anjing');
+    });
+
+    $('#obat_anjing').click(function (e) { 
+      e.preventDefault();
+      filerProduct(1, 'id-obat-anjing');
+    });
+
+    $('#aksesoris_anjing').click(function (e) { 
+      e.preventDefault();
+      filerProduct(1, 'id-aksesoris-anjing');
+    });
+
+
+    $('#makanan-kucing').click(function (e) { 
+      e.preventDefault();
+      filerProduct(2, 'id-makanan-kucing');
+    });
+
+    $('#obat-kucing').click(function (e) { 
+      e.preventDefault();
+      filerProduct(2, 'id-obat-kucing');
+    });
+
+    $('#aksesoris-kucing').click(function (e) { 
+      e.preventDefault();
+      filerProduct(2, 'id-aksesoris-kucing');
+    });
+
+
+    $('#makanan-burung').click(function (e) { 
+      e.preventDefault();
+      filerProduct(3, 'id-makanan-burung');
+    });
+
+    $('#obat-burung').click(function (e) { 
+      e.preventDefault();
+      filerProduct(3, 'id-obat-burung');
+    });
+
+    $('#aksesoris-burung').click(function (e) { 
+      e.preventDefault();
+      filerProduct(3, 'id-aksesoris-burung');
+    });
+
+    $('#reset-filter').click(function (e) { 
+      window.location.reload();
+    });
+    
+    $('#search').keyup(function (e) { 
+      e.preventDefault();
+      let search = $('#search').val();
+      console.log('search', search);
+      // if there is space in search, replace it with dash
+      search = search.replace(/\s/g, '-');
+      let url = '/products-search/' + search;
+      $.ajax({
+        url: url,
+        method: 'GET',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+          'Accept': 'application/json',
+        },
+        success: function(data)
+        {
+          console.log('success', data.data);
+          let products = data.data;
+          console.log('url', url);
+          $('#products').html('');
+          renderProducts(products, 'products');
+                  
+        },
+        error: function(error)
+        {
+          console.log('error', error);
+        }
+      })
     });
   })
 
@@ -56,28 +224,58 @@ $.ajaxSetup({
 
 @include('navbar.navbar-shop')
 
+<input type="hidden" name="" id="user-id" value="{{Auth::user()->id}}">
+<input type="hidden" name="" id="id-makanan-anjing" value="1.1">
+<input type="hidden" name="" id="id-obat-anjing" value="1.2">
+<input type="hidden" name="" id="id-aksesoris-anjing" value="1.3">
+
+<input type="hidden" name="" id="id-makanan-kucing" value="2.1">
+<input type="hidden" name="" id="id-obat-kucing" value="2.2">
+<input type="hidden" name="" id="id-aksesoris-kucing" value="2.3">
+
+<input type="hidden" name="" id="id-makanan-burung" value="3.1">
+<input type="hidden" name="" id="id-obat-burung" value="3.2">
+<input type="hidden" name="" id="id-aksesoris-burung" value="3.3">
+
 <div class="w-[80%] mt-[150px] flex flex-row justify-center items-center mx-auto gap-x-10 my-10 z-20">
   <p class="font-rubik font-[400] text-[24px] text-[#443E7C]">Search</p>
-  <input type="text" class="w-[500px] h-[50px] rounded-xl border border-[#443E7C] px-5 py-2 font-rubik font-[400] text-[24px] text-[#443E7C]">
+  <input type="text" id="search" class="w-[500px] h-[50px] rounded-xl border border-[#443E7C] px-5 py-2 font-rubik font-[400] text-[24px] text-[#443E7C]">
 </div>
 
 <div class="flex flex-row w-full justify-between items-start my-10 z-20">
   <div class="flex flex-col justify-start items-start px-10">
     <h1 class="font-rubik font-[700] text-[24px] text-[#443E7C]">Filter</h1>
     <div class="w-[331px] h-[755px] bg-[#D5DAF7] rounded-lg px-10 py-5">
-      <div class="flex flex-col justify-start items-start cursor-pointer" id="anjing">
-        <h1 class="font-rubik font-[300] text-[20px] text-[#4C4C4C] my-5">Perawatan Anjing</h1>
-        <div id="dropdown-1" class=" flex pl-5 flex-col justify-start items-start gap-5">
-  
+      <div class="flex flex-col justify-start items-start cursor-pointer" >
+        <h1 class="font-rubik font-[300] text-[20px] text-[#4C4C4C] my-5" id="anjing">Perawatan Anjing</h1>
+        <div id="dropdown-1" class="hidden flex pl-5 flex-col justify-start items-start gap-5">
+          <p  class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="makanan_anjing" >> Makanan Anjing</p>
+          <p  class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="obat_anjing">> Obat Anjing</p>
+          <p  class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="aksesoris_anjing">> Aksesoris Anjing</p>
         </div>
       </div>
   
-      <div class="flex flex-col justify-start items-start cursor-pointer" id="kucing">
-        <h1 class="font-rubik font-[300] text-[20px] text-[#4C4C4C] my-5">Perawatan Kucing</h1>
-        <div id="dropdown-2" class=" flex pl-5 flex-col justify-start items-start gap-5">
-  
+      <div class="flex flex-col justify-start items-start cursor-pointer" >
+        <h1 class="font-rubik font-[300] text-[20px] text-[#4C4C4C] my-5" id="kucing">Perawatan Kucing</h1>
+        <div id="dropdown-2" class="hidden flex pl-5 flex-col justify-start items-start gap-5">
+          <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="makanan-kucing">> Makanan kucing</a>
+          <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="obat-kucing">> Obat kucing</a>
+          <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="aksesoris-kucing">> Aksesoris kucing</a>
         </div>
       </div>    
+
+      <div class="flex flex-col justify-start items-start cursor-pointer" >
+        <h1 class="font-rubik font-[300] text-[20px] text-[#4C4C4C] my-5" id="burung">Perawatan Burung</h1>
+        <div id="dropdown-3" class="hidden flex pl-5 flex-col justify-start items-start gap-5">
+          <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="makanan-burung">> Makanan burung</a>
+          <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="obat-burung">> Obat burung</a>
+          <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]" id="aksesoris-burung">> Aksesoris burung</a>
+        </div>
+      </div>    
+
+      <button class="font-rubik font-[400] text-white text-[20px] px-10 py-2 rounded-lg bg-[#443E7C]" id="reset-filter">
+        Reset Filter
+      </button>
     </div>
   </div>
 
@@ -89,27 +287,31 @@ $.ajaxSetup({
         <option value="2">Terlama</option>
       </select>
     </div>
-    <div class="grid grid-cols-4 gap-20 grid-flow-row w-full ">
-      @for ($i = 0; $i < 8; $i++)
-        <div class="flex flex-col w-[288px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer">
-          <div class="w-full h-[213px]">
-            <img src="/images/product.png" class="w-full h-full object-cover" alt="">
-          </div>
-          <p class="font-rubik font-[300] text-[20px] text-black text-left px-2">
-            400g (0.9lb) Royal Canin Mother & Babycat Dry Food for Kittens Up to 12 Months
-          </p>
-          <div class="w-full flex justify-start items-center">
-            <p class="font-rubik font-[400] text-left px-2 text-[24px]">
-              Rp 600.000
+    <div class="grid grid-cols-4 gap-20 grid-flow-row w-full " id="products">
+      @foreach ($products as $product)
+        <a href="/product-detail/{{$product->id}}">
+          <div class="flex flex-col w-[288px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer" >
+            <div class="w-full h-[213px]">
+              <img src="/images/{{$product->image}}" class="w-full h-full object-cover" alt="{{$product->shortname}}">
+            </div>
+            <p class="font-rubik font-[300] text-[20px] text-black text-left px-2">
+              {{-- 400g (0.9lb) Royal Canin Mother & Babycat Dry Food for Kittens Up to 12 Months --}}
+              {{$product->name}}
             </p>
+            <div class="w-full flex justify-start items-center">
+              <p class="font-rubik font-[400] text-left px-2 text-[24px]">
+                {{-- format price in rupiah --}}
+                Rp. {{ number_format($product->price, 0, ',', '.') }}
+              </p>
+            </div>
+            <div class="w-full flex justify-start items-center">
+              <p class="font-rubik font-[300] text-left px-2 text-[18px]">
+                ulasan {{$product->product_reviews->count()}}
+              </p>
+            </div>
           </div>
-          <div class="w-full flex justify-start items-center">
-            <p class="font-rubik font-[300] text-left px-2 text-[18px]">
-              ulasan 1k
-            </p>
-          </div>
-        </div>
-      @endfor
+        </a>
+      @endforeach
     </div>
   </div>
 </div>

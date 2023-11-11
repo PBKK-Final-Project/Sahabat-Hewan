@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ChatSeeder::class,
             ConsultationSeeder::class,
+            TypeSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            ProductReviewSeeder::class,
         ]);
     }   
 }
