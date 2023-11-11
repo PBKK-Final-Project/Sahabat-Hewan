@@ -37,6 +37,13 @@
                 $("#message-recent-inbox").text(e.pesan);
                 $("#sender-recent-inbox").text(dokterData.name);
 
+                // add image to user-profile
+                var userProfile = document.getElementById('user-profile');
+                var imageSource = '/storage/images/' + dokterData.avatar;
+                userProfile.innerHTML = `
+                  <img src="${imageSource}" class="object-contain bg-no-repeat" alt="">
+                `;
+
                 var inputName = "dokter_id-" + dokter_id; 
                 console.log("input name: ", inputName);
                 var dokterId = $(this).find(`input[name="${inputName}"]`).val();
@@ -313,63 +320,7 @@ function scrollToBottom()
 <input type="hidden" name="meuser" id="" value="">
 
 
-<nav class="fixed top-0 w-full z-50">
-  <div class="w-full flex flex-col z-40">
-    <div class="w-full h-[5rem] bg-white   px-10 py-6 flex flex-row justify-between items-center "> 
-      <div class="flex flex-row justify-start items-center gap-x-2">
-        <div class="w-[4.25rem] h-[4.25rem] ">
-          <img class="w-[4.25rem] h-[4.25rem] object-contain" src="/images/Mask group.png"/>
-        </div>
-        <h1 class="font-inter font-bold text-black text-[2rem]">
-          SeAn  
-        </h1>
-      </div>
-    
-      <div class="grid grid-cols-5 justify-items-center items-center w-[50%] mx-auto">
-        <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
-          Home
-        </a>
-        <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
-          Shop
-        </a>
-        <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
-          Academy
-        </a>
-        <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
-          Consult
-        </a>
-        <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
-          Vetvan
-        </a>
-      </div>
-    
-      <div class="flex flex-row justify-center items-center gap-x-2">
-        <a href="/login" class="flex w-[180px] h-[43px]  bg-[#443E7C] rounded-lg justify-center items-center font-rubik text-[30px] text-white  font-[400]">
-          Logout 
-        </a>
-      </div>
-    </div>
-    
-    <div class="w-[50%] h-[146px] bg-[#B9B7EA] mx-auto rounded-b-[30px] flex flex-row justify-center items-center gap-x-20  py-5 px-12">
-      <div class="flex flex-row justify-between items-center gap-x-5 ">
-        <div class="w-[82px] h-[82px] rounded-full bg-white"></div>
-        <h1 class="font-roboto font-[700] text-[32px] text-black capitalize">ahmad rafif</h1>
-      </div>
-      <div class="w-[3px] h-full bg-black  mx-auto"></div>
-      <div class="flex flex-col justify-center items-start ">
-        <h1 class="font-roboto font-[700] text-[25px] text-black">Your Point</h1>
-        <div class="flex flex-row justify-between items-center gap-x-5">
-          <div class="w-[162px] h-[46px] flex justify-center items-center font-roboto font-[700] text-[25px] text-black  bg-white rounded-lg">
-            3000
-          </div>
-          <div class="w-[162px] h-[46px] flex justify-center items-center font-roboto font-[700] text-[25px] text-[#B9B7EA] bg-black rounded-lg">
-            Exchange
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
+@include('navbar.navbar-login')
 
 
 <div class="bg-white my-32 mt-[300px] bg-cover bg-no-repeat w-full  z-10">
@@ -383,7 +334,7 @@ function scrollToBottom()
     recent inbox
   </h1>
   <div class="w-full bg-white px-2 py-3 flex flex-row justify-center items-center rounded-3xl gap-x-10">
-    <div class="w-[117px] h-[117px] rounded-full bg-[#D9D9D9]"></div>
+    <div class="w-[117px] h-[117px] rounded-full bg-[#D9D9D9]" id="user-profile"></div>
     <div class="flex flex-col justify-center items-start">
       <p class="font-rubik font-[500] text-black text-[50px]" id="sender-recent-inbox"></p>
       <div class="bg-[#D5DAF7] rounded-xl w-full flex justify-center items-center px-3 py-2" id="recent-inbox">

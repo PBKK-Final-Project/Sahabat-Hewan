@@ -16,6 +16,9 @@ class ChatController extends Controller
     {
         $user = auth()->user();
         $userId = $user->id;
+        
+        $this->expired();
+
         if($user->role_id == 2)
         {
             $payments = Payment::where('user_id', $user->id)->where('status', 'paid')->get();
@@ -34,22 +37,27 @@ class ChatController extends Controller
         }
         else if ($user->role_id == 1)
         {
-            $doctors = User::join('chats', 'users.id', '=', 'chats.sender_id')
-                        ->where(function ($query) use ($userId) {
-                            $query->where('chats.sender_id', $userId) 
-                                ->orWhere('chats.receiver_id', $userId); 
-                        })
-                        ->where('users.id', '<>', $userId) 
-                        ->select('users.*')
-                        ->distinct()
-                        ->get();
+            $doctor = User::with('consultations')->where('id', $userId)->first();
+            $consultations = $doctor->consultations;
+            $doctors = [];
+            $payments = Payment::where('consultation_id', $consultations->id)->where('status', 'paid')->get();
+            foreach ($payments as $payment)
+            {
+                $user = User::where('id', $payment->user_id)->first();
+                array_push($doctors, $user);
+            }
+            // $doctors = User::join('chats', 'users.id', '=', 'chats.sender_id')
+            //             ->where(function ($query) use ($userId) {
+            //                 $query->where('chats.sender_id', $userId) 
+            //                     ->orWhere('chats.receiver_id', $userId); 
+            //             })
+            //             ->where('users.id', '<>', $userId) 
+            //             ->select('users.*')
+            //             ->distinct()
+            //             ->get();
         }
         
-        
-
-
-
-
+    
         return response()->json([
             'success' => true,
             'message' => 'List Dokter',
@@ -58,6 +66,17 @@ class ChatController extends Controller
             'me' => $userId,
         ]);
     }
+
+    public function expired()
+    {
+        $payments = Payment::all();
+        foreach ($payments as $payment) {
+            if ($payment->expired_date < date('Y-m-d H:i:s')) {
+                $payment->delete();
+            }
+        }
+    }
+
     public function myChat($dokter_id)
     {
         // get chat data where sender_id = auth()->user()->id and receiver_id = dokter_id order or where sender_id = dokter_id and receiver_id = auth()->user()->id by created_at asc

@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="px-5 py-10 w-full ">
         @csrf
 
         <!-- Email Address -->
@@ -39,9 +39,9 @@
                 </a>
             @endif
 
-            <x-primary-button class="ml-3">
+            <x-login-button class="ml-3">
                 {{ __('Log in') }}
-            </x-primary-button>
+            </x-login-button>
         </div>
     </form>
 </x-guest-layout>
