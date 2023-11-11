@@ -1,7 +1,7 @@
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
   <div class="max-w flex flex-wrap items-center justify-between mx-auto px-6 py-4 h-16 sticky">
-  <a href="#" class="flex items-center">
+  <a href="/landing" class="flex items-center">
       <img src="/images/SeAn.png" class="h-8 mr-3"/>
       <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SeAn</span>
   </a>

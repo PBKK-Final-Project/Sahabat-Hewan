@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Consultation::class, 'dokter_id', 'id');
     }
+
+    public function product_reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class, 'user_id', 'id');
+    }
 }

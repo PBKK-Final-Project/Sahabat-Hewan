@@ -12,44 +12,6 @@ $.ajaxSetup({
       }
   });
   $(document).ready(function () {
-    // add dropdown if id anjing is clicked
-    $('#anjing').click(function (e) { 
-      e.preventDefault();
-
-      if(!anjingOnclick)
-      {
-        anjingOnclick = true;
-        $('#dropdown-1').html(`
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Makanan Anjing</a>
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Obat Anjing</a>
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Aksesoris Anjing</a>
-        `);
-      } else 
-      {
-        anjingOnclick = false;
-        $('#dropdown-1').html('');
-      }
-      
-    });
-
-    $('#kucing').click(function (e) { 
-      e.preventDefault();
-
-      if(!kucingOnclick)
-      {
-        kucingOnclick = true;
-        $('#dropdown-2').html(`
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Makanan kucing</a>
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Obat kucing</a>
-              <a href="#" class="font-rubik font-[300] text-[20px] text-[#4C4C4C]">> Aksesoris kucing</a>
-        `);
-      } else 
-      {
-        kucingOnclick = false;
-        $('#dropdown-2').html('');
-      }
-      
-    });
 
     $('#btn-tambah').click(function (e) { 
       e.preventDefault();
@@ -77,21 +39,23 @@ $.ajaxSetup({
 <div class="flex mt-[200px] flex-row justify-between items-start px-10 w-[90%] mx-auto  py-5 ">
   <div class="flex flex-col w-[331px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer">
     <div class="w-full h-[331px]">
-      <img src="/images/product.png" class="w-full h-full object-contain" alt="">
+      <img src="/images/{{$product->image}}" class="w-full h-full object-contain" alt="">
     </div>
     <div class="w-full flex justify-start items-center">
       <p class="font-rubik font-[300] text-left px-2 text-[18px]">
-        ulasan 1k
+        ulasan {{$product->product_reviews->count()}}
       </p>
     </div>
   </div>
 
   <div class="flex basis-1/2 flex-col gap-y-10 justify-start items-start">
     <p class="font-rubik font-[300] text-[24px] text-black">
-      400g (0.9lb) Royal Canin Mother & Babycat Dry Food for Kittens Up to 12 Months
+      {{-- 400g (0.9lb) Royal Canin Mother & Babycat Dry Food for Kittens Up to 12 Months --}}
+      {{$product->name}}
     </p>
     <p class="font-rubik font-[400] text-[32px] text-black">
-      Rp 600.000
+      {{-- Rp 600.000 --}}
+      Rp. {{ number_format($product->price, 0, ',', '.') }}
     </p>
     <div class="flex flex-col justify-start gap-y-2 items-start w-full">
       <p class="font-rubik pl-5 font-[600] text-[24px] text-[#443E7C]">
@@ -100,7 +64,7 @@ $.ajaxSetup({
       <div class="w-full bg-[#A3A3A3] h-[2px]"></div>
       <div class="flex flex-col w-full gap-y-5 justify-start items-start">
         <p class="font-rubik font-[300] text-black text-[20px]">
-          Kondisi: Baru
+          Kondisi: {{$product->condition}}
         </p>
         <p class="font-rubik font-[300] text-black text-[20px]">
           Min. Pemesanan: 1
@@ -109,10 +73,16 @@ $.ajaxSetup({
           Etalase: Semua Etalase
         </p>
         <p class="font-rubik font-[300] text-black text-[20px]">
-          Stock: 100
+          Stock: {{$product->stock}}
         </p>
         <p class="font-rubik font-[300] text-black text-[20px]">
-          Deskripsi: <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque ad libero distinctio natus assumenda mollitia doloribus, veniam beatae ratione molestiae fugit? Labore delectus dolor ab? Porro necessitatibus incidunt beatae alias minima velit repudiandae ab impedit adipisci? Aspernatur est tempora vero voluptas esse. Exercitationem omnis sint similique voluptatum labore quis? Voluptates blanditiis fuga tenetur soluta quibusdam voluptatibus quis ratione vel? Quia modi temporibus necessitatibus earum provident pariatur enim dolorum expedita veniam molestiae, minima, dolor alias, sunt quo in nostrum veritatis voluptatum! Delectus blanditiis voluptates magnam temporibus mollitia exercitationem, inventore qui accusantium saepe quo iste harum enim earum eaque perferendis vero numquam.
+          Kategori: {{$product->categories->category}}
+        </p>
+        <p class="font-rubik font-[300] text-black text-[20px]">
+          Tipe: {{$product->types->type}}
+        </p>
+        <p class="font-rubik font-[300] text-black text-[20px]">
+          Deskripsi: <br> {{$product->description}}
         </p>
       </div>
     </div>
@@ -121,12 +91,12 @@ $.ajaxSetup({
   <div class="flex flex-col justify-center items-start border gap-y-10 px-5 py-2 border-black rounded-xl w-[350px] h-[400px]">
     <div class="w-full flex flex-row justify-center items-center gap-x-3">
       <img src="/images/product.png" class="w-[120px] object-contain " alt="">
-      <p class="font-rubik font-[300] text-[20px] text-black">Mother & Babycat Dry Food</p>
+      <p class="font-rubik font-[300] text-[20px] text-black">{{$product->shortname}}</p>
     </div>
     <div class="w-full h-[1px] bg-[#443E7C] "></div>
     {{-- stock input --}}
     <div class="flex flex-row justify-between items-center w-full">
-      <p class="font-rubik font-[300] text-[20px] text-black">Stock: 3</p>
+      <p class="font-rubik font-[300] text-[20px] text-black">Stock: {{$product->stock}}</p>
       <div class="flex flex-row justify-between items-center gap-x-2">
         <button class="w-[30px] h-[30px] rounded-full bg-[#443E7C] flex justify-center items-center" id="btn-kurang">
           <p class="font-rubik font-[300] text-[20px] text-white">-</p>
@@ -148,7 +118,29 @@ $.ajaxSetup({
     </div>
   </div>
 </div>
-  
+
+
+<div class="flex flex-col justify-start items-start  w-full px-10 h-[200px]">
+  <h1 class="font-rubik font-[600] text-[24px] text-black">Ulasan Pembeli</h1>
+  <div class="w-full overflow-y-auto">
+    @foreach ($product->product_reviews as $review)
+      <div class="flex flex-row w-[400px] gap-x-5 mt-5">
+        <div class="w-[58px] h-[58px]">
+          <img src="/storage/images/{{$review->users->avatar}}" class="w-full object-contain" alt="">
+        </div>
+        <div class="flex flex-col gap-y-2">
+          <div class="flex flex-row gap-x-3">
+            <p class="font-rubik font-[400] text-[20px] text-black">{{$review->users->name}}</p>
+            <p class="font-rubik font-[300] text-[16px] text-black">{{$review->created_at}}</p>
+          </div>
+          <p class="font-rubik font-[300] text-[20px] text-black">{{$review->review}}</p>
+        </div>
+      </div>
+    @endforeach
+  </div>
+</div>
+
+
 <footer class="flex flex-row justify-start items-start px-10 py-10 gap-x-20">
   <div class="flex flex-col gap-y-5 justify-center items-stretch ">
     <div class="flex flex-row justify-center items-end gap-x-5">
