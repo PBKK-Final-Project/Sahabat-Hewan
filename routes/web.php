@@ -59,6 +59,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/payment-status/{id}', [PaymentController::class, 'paymentStatus']);
 
+    // shop page
+    Route::get('/shop', function () {
+        return view('shop.index');
+    });
+    
+    Route::get('/product-detail', function(){
+        return view('shop.product-detail');
+    });
+    
+
 });
 
 
