@@ -29,6 +29,7 @@ class ConsultationController extends Controller
     {
         $consultations = Consultation::with('dokters')->get();
 
+
         return view('consult.consult', [
             'consultations' => $consultations
         ]);

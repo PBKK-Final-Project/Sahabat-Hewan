@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingPage.landingPage');
 });
 
 Route::get('/dashboard', function () {
@@ -62,6 +62,5 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Route::get('/consultation', [ConsultationController::class, 'index']);
 
 require __DIR__.'/auth.php';

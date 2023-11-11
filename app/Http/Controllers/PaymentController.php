@@ -40,6 +40,13 @@ class PaymentController extends Controller
 
         $result = $apiInstance->createInvoice($createInvoice);
 
+        // check if payment already exist
+        $payment = Payment::where('user_id', $user->id)->where('consultation_id', $consultation->id)->first();
+        if ($payment) {
+            return response()->json([
+                'data' => 'already paid'
+            ]);
+        }
         // save to database
         $payment = new Payment();
         $payment->consultation_id = $consultation->id;
@@ -48,6 +55,9 @@ class PaymentController extends Controller
         $payment->status = 'settled';
         $payment->email = $email;
         $payment->payment_url = $result['invoice_url'];
+        $payment->expired_date = date('Y-m-d H:i:s', strtotime('+1 day'));
+        // $payment->expired_date = date('Y-m-d H:i:s', strtotime('+1 minute'));
+        // $payment->expired_date = date('Y-m-d H:i:s', strtotime('+1 hour'));
         $payment->save();
 
 

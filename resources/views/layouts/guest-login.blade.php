@@ -15,8 +15,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen  flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-purple-200 to-indigo-900 transform  dark:bg-gray-900">
-            <div class=" w-[7rem] h-[7rem] bg-[url('\public\images\Mask group.png')] bg-contain bg-no-repeat ">
+        <div class="min-h-screen relative flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-purple-200 to-indigo-900 transform  dark:bg-gray-900">
+            <div class="absolute top-[10rem] w-[8rem] h-[8rem] bg-[url('\public\images\Mask group.png')] bg-contain bg-no-repeat ">
                 <a href="/">
                     {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
                     <img src="/images/SeAn.png" class="w-full h-full" alt="">

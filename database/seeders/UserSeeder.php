@@ -17,24 +17,27 @@ class UserSeeder extends Seeder
             'name' => 'Dimas Fadilah',
             'email' => 'dimasfadilah20@gmail.com',
             'password' => bcrypt('password'),
-            'avatar' => 'me.png',
+            'avatar' => 'profile.png',
             'role_id' => 2,
+            'alamat' => 'Jl. Raya Cikarang - Cibarusah, Cikarang Utara, Bekasi',
         ]);
 
         User::create([
             'name' => 'Rafif',
             'email' => 'zeonkunix@gmail.com',
             'password' => bcrypt('password'),
-            'avatar' => 'me.png',
+            'avatar' => 'profile.png',
             'role_id' => 1,
+            'alamat' => 'Jl. Raya Cikarang - Cibarusah, Cikarang Utara, Bekasi',
         ]);
 
         User::create([
             'name' => 'Jhon Doe',
             'email' => 'jhon@gmail.com',
             'password' => bcrypt('password'),
-            'avatar' => 'me.png',
+            'avatar' => 'profile.png',
             'role_id' => 1,
+            'alamat' => 'Jl. Raya Cikarang - Cibarusah, Cikarang Utara, Bekasi',
         ]);
 
         foreach(range(1, 20) as $i)

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('status');
             $table->string('payment_url')->nullable();
+            $table->timestamp('expired_date')->nullable();
             $table->timestamps();
         });
     }
