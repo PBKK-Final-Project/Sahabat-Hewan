@@ -44,7 +44,7 @@
       <a href="/home" class="font-rubik font-[400] text-black text-[30px]">
         Home
       </a>
-      <a href="/consult" class="font-rubik font-[400] text-black text-[30px]">
+      <a href="/shop" class="font-rubik font-[400] text-black text-[30px]">
         Shop
       </a>
       <a href="/academy" class="font-rubik font-[400] text-black text-[30px]">
