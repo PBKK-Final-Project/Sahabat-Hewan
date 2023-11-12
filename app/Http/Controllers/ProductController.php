@@ -94,4 +94,22 @@ class ProductController extends Controller
             'data' => $products,
         ]);
     }
+
+    public function sort($sort)
+    {
+        if($sort == '1' || $sort == 1)
+        {
+            $products = Product::with(['categories', 'types', 'product_reviews'])->orderBy('created_at', 'desc')->get();
+            return response()->json([
+                'data'=> $products
+                ]);
+        }else 
+        {
+            $products = Product::with(['categories', 'types', 'product_reviews'])->orderBy('created_at', 'asc')->get();   
+            return response()->json([
+                'data'=> $products
+                ]);
+        }
+
+    }
 }

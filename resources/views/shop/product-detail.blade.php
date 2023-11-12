@@ -13,6 +13,37 @@ $.ajaxSetup({
   });
   $(document).ready(function () {
 
+    $('#keranjang').click(function(e) {
+      e.preventDefault();
+      inputStock = parseInt($('#input-stock').val());
+      let idProduct = $('#id-product').val();
+      console.log("id product: " + idProduct);
+      console.log("quantity: " + inputStock);
+
+
+      $.ajax({
+        url: '/cart',
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+          'Accept': 'application/json',
+        },
+        data: {
+          product_id: idProduct,
+          quantity: inputStock,
+        },
+        success: function (response) {
+          console.log(response);
+          alert('Berhasil ditambahkan ke keranjang');
+        },
+        error: function (response) {
+          console.log(response);
+          alert('Gagal ditambahkan ke keranjang');
+        }
+      });
+
+    });
+
     $('#btn-tambah').click(function (e) { 
       e.preventDefault();
       inputStock = parseInt($('#input-stock').val());
@@ -35,6 +66,7 @@ $.ajaxSetup({
 
 @include('navbar.navbar-shop')
 
+<input type="hidden" value="{{$product->id}}" id="id-product">
 
 <div class="flex mt-[200px] flex-row justify-between items-start px-10 w-[90%] mx-auto  py-5 ">
   <div class="flex flex-col w-[331px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer">
@@ -112,7 +144,7 @@ $.ajaxSetup({
       <button class="w-[150px] h-[50px] rounded-xl bg-white flex border border-[#443E7C] justify-center items-center">
         <p class="font-rubik font-[300] text-[20px] text-[#443E7C]">Buy Now</p>
       </button>
-      <button class="w-[150px] h-[50px] rounded-xl bg-[#443E7C] flex justify-center items-center">
+      <button class="w-[150px] h-[50px] rounded-xl bg-[#443E7C] flex justify-center items-center" id="keranjang">
         <p class="font-rubik font-[300] text-[20px] text-white">Keranjang</p>
       </button>
     </div>
