@@ -6,6 +6,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +72,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/products-search/{keyword}', [ProductController::class, 'search']);
     Route::get('/products-search', [ProductController::class, 'getAllProducts']);
     Route::get('/products-sort/{sort}', [ProductController::class, 'sort']);
+    
+    Route::post('/product-review', [ProductReviewController::class,'storeReview']);
 
     // Cart page
     Route::get('/cart', [CartController::class,'index']);

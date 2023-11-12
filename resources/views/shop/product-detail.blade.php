@@ -60,6 +60,36 @@ $.ajaxSetup({
         $('#input-stock').val(inputStock);
       }
     });
+
+    $('#btn-review').click(function (e) { 
+      e.preventDefault();
+      let review = $('#review').val();
+      let idProduct = $('#id-product').val();
+      console.log("review: " + review);
+      console.log("id product: " + idProduct);
+
+      $.ajax({
+        url: '/product-review',
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+          'Accept': 'application/json',
+        },
+        data: {
+          product_id: idProduct,
+          review: review,
+        },
+        success: function (response) {
+          console.log(response);
+          alert('Berhasil ditambahkan review');
+          location.reload();
+        },
+        error: function (response) {
+          console.log(response);
+          alert('Gagal ditambahkan review');
+        }
+      });
+    });
   })
 
 </script>
@@ -152,7 +182,7 @@ $.ajaxSetup({
 </div>
 
 
-<div class="flex flex-col justify-start items-start  w-full px-10 h-[200px]">
+<div class="flex flex-col justify-start items-start  w-full px-10 h-[450px]">
   <h1 class="font-rubik font-[600] text-[24px] text-black">Ulasan Pembeli</h1>
   <div class="w-full overflow-y-auto">
     @foreach ($product->product_reviews as $review)
@@ -169,6 +199,15 @@ $.ajaxSetup({
         </div>
       </div>
     @endforeach
+  </div>
+  
+  {{-- create input fo review --}}
+  <div class="w-[50%] ">
+    <label for="review" class="font-rubik font-[400] text-[20px] text-black">Review</label>
+    <textarea name="review" id="review" cols="30" rows="10" class="w-full h-[100px] rounded-xl border border-[#443E7C] px-5 py-2 font-rubik font-[300] text-[20px] text-[#443E7C] text-left"></textarea>
+    <button class="w-[150px] h-[50px] rounded-xl bg-[#443E7C] flex justify-center items-center mt-5" id="btn-review">
+      <p class="font-rubik font-[300] text-[20px] text-white">Submit</p>
+    </button>
   </div>
 </div>
 
