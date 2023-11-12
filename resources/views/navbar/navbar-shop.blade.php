@@ -24,9 +24,11 @@
   </div>
 
   <div class="  flex flex-row gap-x-5 z-50">
-    <div class="w-[65px] h-[67px]">
-      <img src="/images/cart.png" alt="cart" class="w-full h-full object-cover rounded-full">
-    </div>
+    <a href="/cart">
+      <div class="w-[65px] h-[67px]">
+        <img src="/images/cart.png" alt="cart" class="w-full h-full object-cover rounded-full">
+      </div>
+    </a>
     <form method="POST" action="{{ route('logout') }}">
       @csrf
       <button type="submit" class="px-10 py-2 rounded-xl bg-[#443E7C] font-rubik font-[400] text-white text-[30px] flex justify-center items-center">

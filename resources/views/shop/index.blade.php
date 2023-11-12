@@ -188,12 +188,41 @@ $.ajaxSetup({
     $('#reset-filter').click(function (e) { 
       window.location.reload();
     });
+
+    $('#sort').change(function (e) { 
+      e.preventDefault();
+      let sort = $('#sort').val();
+      if(sort !== '')
+      {
+        let url = '/products-sort/' + sort;
+        $.ajax({
+          url: url,
+          method: 'GET',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Accept': 'application/json',
+          },
+          success: function(data)
+          {
+            let products = data.data;
+            console.log('url', url);
+            $('#products').html('');
+            renderProducts(products, 'products');
+                    
+          },
+          error: function(error)
+          {
+            console.log('error', error);
+          }
+        })
+
+      }
+    });
     
     $('#search').keyup(function (e) { 
       e.preventDefault();
       let search = $('#search').val();
       console.log('search', search);
-      // if there is space in search, replace it with dash
       search = search.replace(/\s/g, '-');
       let url = '/products-search/' + search;
       $.ajax({
@@ -283,6 +312,7 @@ $.ajaxSetup({
     <div class="flex flex-row justify-end items-center w-full gap-x-5">
       <label for="sort" class="font-rubik font-[400] text-[24px] text-[#443E7C]">Sort By</label>
       <select name="sort" id="sort" class="w-[250px] h-[50px] rounded-xl border border-[#443E7C] px-5 py-2 font-rubik font-[400] text-[18px] text-[#443E7C]">
+        <option value=""></option>
         <option value="1">Terbaru</option>
         <option value="2">Terlama</option>
       </select>

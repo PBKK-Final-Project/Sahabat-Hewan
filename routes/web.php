@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\MessageNotification;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\PaymentController;
@@ -69,8 +70,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/products-search/{keyword}', [ProductController::class, 'search']);
     Route::get('/products-search', [ProductController::class, 'getAllProducts']);
+    Route::get('/products-sort/{sort}', [ProductController::class, 'sort']);
+
+    // Cart page
+    Route::get('/cart', [CartController::class,'index']);
+    Route::post('/cart', [CartController::class,'store']);
+    Route::delete('/cart/{id}', [CartController::class,'destroy']);
 
 });
+
+// Route::get('/cart', function () {
+//     return view('shop.cart-page');
+// });
 
 
 
