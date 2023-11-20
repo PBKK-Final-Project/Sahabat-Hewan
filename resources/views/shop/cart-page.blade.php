@@ -10,6 +10,26 @@
   });
   $(document).ready(function () {
 
+    // $('#btn-payment').click(function (e) { 
+    //   e.preventDefault();
+    //   $.ajax({
+    //     url: '/cart-payment',
+    //     method: 'POST',
+    //     headers: {
+    //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+    //       'Accept': 'application/json',
+    //     },
+    //     success: function (response) {
+    //       console.log(response);
+    //       alert('Berhasil melakukan pembayaran');
+    //       location.reload();
+    //     },
+    //     error: function (response) {
+    //       console.log(response);
+    //       alert('Gagal melakukan pembayaran');
+    //     }
+    //   });
+    // });
     
     @php
         $j = 0;
@@ -66,7 +86,7 @@
     @foreach ($carts as $cart)
       <div class="flex  flex-row justify-start items-start border gap-x-10 border-black rounded-lg px-5 py-3">
         <div class="w-[250px] h-[250px] rounded-lg">
-          <img src="/storage/images/product.png" alt="product" class="w-full object-contain">
+          <img src="/storage/product/images/{{$cart->products->image}}" alt="product" class="w-full object-contain">
         </div>
         <div class="basis-1/3 flex flex-col gap-y-3 justify-start items-start">
           <p class="font-rubik font-[400] text-black text-[20px]">
@@ -113,9 +133,13 @@
     <p class="font-rubik mx-auto text-center  font-[600] text-[24px] text-black">
       Alamat: Jember 
     </p>
-    <button class="font-rubik font-[600] rounded-xl bg-blue-600 text-white text-[30px] px-10 py-2">
-      Make Payment
-    </button>
+    <form action="/cart-payment" method="POST">
+      @csrf
+      <input type="hidden" name="total" value="{{$total}}">
+      <button type="submit" id="btn-payment" class="font-rubik font-[600] rounded-xl bg-blue-600 text-white text-[30px] px-10 py-2">
+        Make Payment
+      </button>
+    </form>
   </div>
 </div>
 

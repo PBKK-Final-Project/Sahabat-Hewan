@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -111,5 +113,134 @@ class ProductController extends Controller
                 ]);
         }
 
+    }
+
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        $request->validate(
+            [
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'category_id' => 'required',
+                'type_id' => 'required',
+                'stock' => 'required',
+                'condition' => 'required',
+                'shortname' => 'required',
+            ]
+        );
+
+        $filename = '';
+        if($request->file('image'))
+        {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+
+            $filename = 'product' . time() . '_' . rand(0, 999) . '.' . $request->file('image')->extension();
+
+            $request->file('image')->storeAs('/public/product/images', $filename);
+
+        }
+
+        $product = Product::create([
+            'name' => $request->name,
+            'description'=> $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'type_id' => $request->type_id,
+            'image' => $filename,
+            'stock' => $request->stock,
+            'condition' => $request->condition,
+            'shortname' => $request->shortname,
+            'sold' => 0,
+        ]);
+
+        return redirect('/shop');
+    }
+
+    public function create()
+    {
+        $types = Type::all();
+        $categories = Category::all();
+
+        return view('admin.create-product', ['types' => $types, 'categories' => $categories]);
+    }
+
+    public function products()
+    {
+        $products = Product::with(['categories', 'types', 'product_reviews'])->get();
+        
+        return view('admin.products', ['products' => $products]);
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+
+        return redirect('/products');
+    }
+
+    public function edit($id)
+    {
+        $product = Product::with(['categories', 'types', 'product_reviews'])->where('id', $id)->get()[0];
+        // dd($product);
+        $types = Type::all();
+        $categories = Category::all();
+
+        return view('admin.edit-product', ['product' => $product, 'types' => $types, 'categories' => $categories]);
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate(
+            [
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'category_id' => 'required',
+                'type_id' => 'required',
+                'stock' => 'required',
+                'condition' => 'required',
+                'shortname' => 'required',
+            ]
+        );
+
+        $filename = '';
+        if($request->file('image'))
+        {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+
+            $filename = 'product' . time() . '_' . rand(0, 999) . '.' . $request->file('image')->extension();
+
+            $request->file('image')->storeAs('/public/product/images', $filename);
+
+        }
+
+        $product = Product::find($request->id);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price =  $request->price;
+        $product->category_id = $request->category_id;
+        $product->type_id = $request->type_id;
+        $product->stock = $request->stock;
+        $product->condition = $request->condition;
+        $product->shortname = $request->shortname;
+        if($filename != '')
+        {
+            $oldImage = $product->image;
+            if($oldImage != '')
+            {
+                unlink(storage_path('\app\public\product\images\\' . $oldImage));
+            }
+            $product->image = $filename;
+        }
+        $product->save();
+
+        return redirect('/products');
     }
 }

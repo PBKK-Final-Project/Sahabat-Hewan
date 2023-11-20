@@ -69,7 +69,7 @@ $.ajaxSetup({
         const productImage = document.createElement("div");
         productImage.className = "w-full h-[213px]";
         const image = document.createElement("img");
-        image.src = `/images/${product.image}`;
+        image.src = `/storage/product/images/${product.image}`;
         image.className = "w-full h-full object-cover";
         image.alt = product.shortname;
         productImage.appendChild(image);
@@ -322,7 +322,7 @@ $.ajaxSetup({
         <a href="/product-detail/{{$product->id}}">
           <div class="flex flex-col w-[288px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer" >
             <div class="w-full h-[213px]">
-              <img src="/images/{{$product->image}}" class="w-full h-full object-cover" alt="{{$product->shortname}}">
+              <img src="/storage/product/images/{{$product->image}}" class="w-full h-full object-cover" alt="{{$product->shortname}}">
             </div>
             <p class="font-rubik font-[300] text-[20px] text-black text-left px-2">
               {{-- 400g (0.9lb) Royal Canin Mother & Babycat Dry Food for Kittens Up to 12 Months --}}
