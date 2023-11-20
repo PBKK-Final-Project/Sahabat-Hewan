@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\MessageNotification;
 use App\Events\WebhookNotification;
 use App\Models\Consultation;
+use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Str;
@@ -62,6 +63,8 @@ class PaymentController extends Controller
 
 
         event(new MessageNotification($payment->consultation_id, strtolower($result['status'])));
+        // event(new WebhookNotification($payment->consultation_id, strtolower($result['status'])));
+
 
 
         return response()->json([
@@ -76,16 +79,32 @@ class PaymentController extends Controller
 
         $payment = Payment::where('external_id', $request->external_id)->first();
 
-        $payment->status = strtolower($result['status']);
+        if($payment)
+        {
+            $payment->status = strtolower($result['status']);
+    
+            $payment->save();
+    
+            event(new MessageNotification($payment->consultation_id, strtolower($result['status'])));
+            // event(new WebhookNotification($payment->consultation_id, strtolower($result['status'])));
+    
+            return response()->json([
+                'data' => strtolower($result['status'])
+            ]);
 
-        $payment->save();
+        } else 
+        {
+            $order = Order::where('external_id', $request->external_id)->first();
+            $order->paid_status = strtolower($result['status']);
 
-        event(new MessageNotification($payment->consultation_id, strtolower($result['status'])));
+            $order->save();
 
-        return response()->json([
-            'data' => strtolower($result['status'])
-        ]);
+            return response()->json([
+                'data'=> strtolower($result['status'])
+            ]);
+        }
     }
+
 
     public function paymentStatus($id)
     {

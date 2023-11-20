@@ -23,3 +23,7 @@ Broadcast::channel('notification', function ($user) {
 Broadcast::channel('private-notification.{receiverId}', function ($user, $receiverId) {
     return true;
 });
+
+Broadcast::channel('webhook-notification.{consultationId}', function ($user, $consultationId) {
+    return true;
+});

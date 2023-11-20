@@ -101,7 +101,7 @@ $.ajaxSetup({
 <div class="flex mt-[200px] flex-row justify-between items-start px-10 w-[90%] mx-auto  py-5 ">
   <div class="flex flex-col w-[331px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer">
     <div class="w-full h-[331px]">
-      <img src="/images/{{$product->image}}" class="w-full h-full object-contain" alt="">
+      <img src="/storage/product/images/{{$product->image}}" class="w-full h-full object-contain" alt="">
     </div>
     <div class="w-full flex justify-start items-center">
       <p class="font-rubik font-[300] text-left px-2 text-[18px]">

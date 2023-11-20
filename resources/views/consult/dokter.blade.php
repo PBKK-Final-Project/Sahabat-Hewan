@@ -48,6 +48,42 @@ $.ajaxSetup({
       }
     });
 
+
+    // window.Echo.private(`webhook-notification.${consultation_id}`)
+    // .listen('.MessageNotification', (e) => {
+    //   console.log("BROADCASTING WOYYYYYYY");
+    //   console.log("status", e.message);
+    //   if(e.message == 'settled' || e.message == 'pending')
+    //   {
+    //     let url = '';
+    //     $.ajax({
+    //       url: '/payment-status/' + consultation_id,
+    //       method: 'GET',
+    //       headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+    //         'Accept': 'application/json',
+    //       },
+    //       success: function(data)
+    //       {
+    //         url = data.payment_url;
+    //         console.log("url", url);
+    //         window.open(url, '_blank');
+    //       }
+    //     })
+
+      
+    //     $('#button-pay').addClass('hidden');
+    //     $('#button-process').removeClass('hidden');
+    //     $('#button-consult').addClass('hidden');
+    //   }
+    //   else if(e.message == 'paid')
+    //   {
+    //     $('#button-pay').addClass('hidden');
+    //     $('#button-process').addClass('hidden');
+    //     $('#button-consult').removeClass('hidden');
+    //   }
+    // });
+
     $.ajax({
       url: '/payment-status/' + consultation_id,
       method: 'GET',
