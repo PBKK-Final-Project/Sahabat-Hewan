@@ -41,23 +41,17 @@
 </div> -->
 <div class="justify-center items-center py-4 flex">
     <div class="w-[44rem]">
-        <div class="mb-[2rem]">
-            <a href="#">
-                <h5 class="p-4 text-1xl font-bold text-[18px] tracking-tight text-[#FFEBFF] dark:text-white bg-purple-400 text-center rounded-t-lg">Train Your Doggie For Beginner</h5>
-                <div class="relative">
-                    <img class="w-full h-60 object-cover rounded-b-lg" src="{{ asset('images/orang-anjing2.png') }}" alt="" />
-                </div>
-            </a>
-        </div>
 
+        @foreach ($academies as $academy)
         <div class="mb-[2rem]">
-            <a href="#">
-                <h5 class="p-4 text-1xl font-bold text-[18px] tracking-tight text-[#FFEBFF] dark:text-white bg-purple-400 text-center rounded-t-lg">Make Your Cat Confortable Around You</h5>
+            <a href="/academy/{{ $academy->slug }}">
+                <h5 class="p-4 text-1xl font-bold text-[18px] tracking-tight text-[#FFEBFF] dark:text-white bg-purple-400 text-center rounded-t-lg">{{ $academy->title }}</h5>
                 <div class="relative">
-                    <img class="w-full h-60 object-cover rounded-b-lg" src="{{ asset('images/image-5.png') }}" alt="" />
+                    <img class="w-full h-60 object-cover rounded-b-lg" src="{{ $academy->image }}" alt="" />
                 </div>
             </a>
         </div>
+        @endforeach
     </div>
 </div>
 

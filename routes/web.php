@@ -4,6 +4,7 @@ use App\Events\MessageNotification;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AcademyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,11 +32,9 @@ Route::middleware('auth')->group(function () {
         return view('consult.consult');
     });
 
-    Route::get('/academy', function() {
-        return view('academy.academy');
-    });
+    Route::get('/academy', [AcademyController::class, 'index']);
+    Route::get('/academy/{article:slug}', [AcademyController::class, 'singleAcademy']);
     
-
     Route::get('/chat', function () {
         return view('chat.index');
     });
