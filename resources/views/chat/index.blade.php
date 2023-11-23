@@ -39,7 +39,7 @@
 
                 // add image to user-profile
                 var userProfile = document.getElementById('user-profile');
-                var imageSource = '/storage/images/' + dokterData.avatar;
+                var imageSource = '/storage/product/images/' + dokterData.avatar;
                 userProfile.innerHTML = `
                   <img src="${imageSource}" class="object-contain bg-no-repeat" alt="">
                 `;

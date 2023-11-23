@@ -13,6 +13,30 @@ $.ajaxSetup({
   });
   $(document).ready(function () {
 
+    $('#rating').change(function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/rating/' + {{$product->id}},
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+          'Accept': 'application/json',
+        },
+        data: {
+          rating: $('#rating').val(),
+        },
+        success: function (response) {
+          console.log(response);
+          alert('Berhasil menambahkan rating');
+          location.reload();
+        },
+        error: function (response) {
+          console.log(response);
+          alert('Gagal menambahkan rating');
+        }
+      })
+    });
+
     $('#keranjang').click(function(e) {
       e.preventDefault();
       inputStock = parseInt($('#input-stock').val());
@@ -146,13 +170,21 @@ $.ajaxSetup({
         <p class="font-rubik font-[300] text-black text-[20px]">
           Deskripsi: <br> {{$product->description}}
         </p>
+        {{-- avarage rating --}}
+        <p class="font-rubik font-[300] text-black text-[20px]">
+          Rating: {{$averageRating}}
+          {{-- convert $averageRating to int --}}
+          @for ($i = 0; $i < (int)$averageRating; $i++)
+            <span class="text-[#FFD700]">⭐</span>
+          @endfor
+        </p>
       </div>
     </div>
   </div>
 
   <div class="flex flex-col justify-center items-start border gap-y-10 px-5 py-2 border-black rounded-xl w-[350px] h-[400px]">
     <div class="w-full flex flex-row justify-center items-center gap-x-3">
-      <img src="/images/product.png" class="w-[120px] object-contain " alt="">
+      <img src="/storage/product/images/{{$product->image}}" class="w-[120px] object-contain " alt="">
       <p class="font-rubik font-[300] text-[20px] text-black">{{$product->shortname}}</p>
     </div>
     <div class="w-full h-[1px] bg-[#443E7C] "></div>
@@ -181,6 +213,28 @@ $.ajaxSetup({
   </div>
 </div>
 
+<div class="flex flex-col justify-start items-start  w-full px-10 my-5">
+  {{-- label for rating --}}
+  <h1 class="font-rubik font-[600] text-[24px] text-black">Rating</h1>
+  <select name="rating" id="rating" class="font-rubik font-[400] text-black text-[20px] border-2 border-gray-500 rounded-lg px-5 py-2 w-[15rem]">
+    @if ($userRating == null)
+      <option value="0"></option>
+    @else
+      <option value="{{$userRating->rating}}">
+        @for ($i = 0; $i < $userRating->rating; $i++)
+          ⭐
+        @endfor
+      </option>
+    @endif
+    <option value="1">⭐</option>
+    <option value="2">⭐⭐</option>
+    <option value="3">⭐⭐⭐</option>
+    <option value="4">⭐⭐⭐⭐</option>
+    <option value="5">⭐⭐⭐⭐⭐</option>
+  </select>
+
+</div>
+
 
 <div class="flex flex-col justify-start items-start  w-full px-10 h-[450px]">
   <h1 class="font-rubik font-[600] text-[24px] text-black">Ulasan Pembeli</h1>
@@ -188,7 +242,7 @@ $.ajaxSetup({
     @foreach ($product->product_reviews as $review)
       <div class="flex flex-row w-[400px] gap-x-5 mt-5">
         <div class="w-[58px] h-[58px]">
-          <img src="/storage/images/{{$review->users->avatar}}" class="w-full object-contain" alt="">
+          <img src="/storage/product/images/{{$review->users->avatar}}" class="w-full object-contain" alt="">
         </div>
         <div class="flex flex-col gap-y-2">
           <div class="flex flex-row gap-x-3">
@@ -210,6 +264,7 @@ $.ajaxSetup({
     </button>
   </div>
 </div>
+
 
 
 <footer class="flex flex-row justify-start items-start px-10 py-10 gap-x-20">

@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/payment/{id}', [PaymentController::class, 'createPayment']);
 
     Route::get('/payment-status/{id}', [PaymentController::class, 'paymentStatus']);
+    Route::get('/consultation/{id}', [PaymentController::class, 'showConsultation']);
 
     // shop page
     Route::get('/shop', [ProductController::class, 'index']);
@@ -87,31 +89,42 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', function()
     {
         return view('admin.admin-dashboard');
-    });
+    })->middleware('admin-dashboard');
 
     // admin category
-    Route::get('/create-category', [CategoryController::class, 'getCategory']);
-    Route::post('/update-category/{id}', [CategoryController::class, 'updateCategory']);
-    Route::post('/create-category', [CategoryController::class, 'storeCategory']);
-    Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory']);
 
-    // admin type
-    Route::get('/create-type', [TypeController::class, 'getType']);
-    Route::post('/update-type/{id}', [TypeController::class, 'updateType']);
-    Route::post('/create-type', [TypeController::class, 'storeType']);
-    Route::delete('/delete-type/{id}', [TypeController::class, 'deleteType']);
+    Route::middleware('admin-dashboard')->group(function () {
+        Route::get('/create-category', [CategoryController::class, 'getCategory']);
+        Route::post('/update-category/{id}', [CategoryController::class, 'updateCategory']);
+        Route::post('/create-category', [CategoryController::class, 'storeCategory']);
+        Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory']);
+    
+        // admin type
+        Route::get('/create-type', [TypeController::class, 'getType']);
+        Route::post('/update-type/{id}', [TypeController::class, 'updateType']);
+        Route::post('/create-type', [TypeController::class, 'storeType']);
+        Route::delete('/delete-type/{id}', [TypeController::class, 'deleteType']);
+    
+        Route::get('/create-product', [ProductController::class,'create']);
+        Route::post('/create-product', [ProductController::class,'store']);
+        Route::get('/products', [ProductController::class,'products']);
+    
+        Route::delete('/delete-product/{id}', [ProductController::class,'destroy']);
+        Route::get('/edit-product/{id}', [ProductController::class,'edit']);
+        Route::post('/edit-product/{id}', [ProductController::class,'update']);
+        Route::post('/update-shipping-status/{id}', [OrderController::class,'updateShippingStatus']);
+    });
 
-    Route::get('/create-product', [ProductController::class,'create']);
-    Route::post('/create-product', [ProductController::class,'store']);
-    Route::get('/products', [ProductController::class,'products']);
-
-    Route::delete('/delete-product/{id}', [ProductController::class,'destroy']);
-    Route::get('/edit-product/{id}', [ProductController::class,'edit']);
-    Route::post('/edit-product/{id}', [ProductController::class,'update']);
 
     Route::post('/cart-payment', [OrderController::class,'createPayment']);
 
     Route::get('/user-orders', [OrderController::class,'index']);
+    Route::get('/user-order-data', [OrderController::class,'orderData']);
+    Route::get('/orders', [OrderController::class,'orders']);
+
+    // rating
+    Route::post('/rating/{id}', [RatingController::class,'store']);
+
 
 });
 

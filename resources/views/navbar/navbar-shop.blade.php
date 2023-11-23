@@ -60,6 +60,10 @@ $(document).ready(function () {
         echo '<a href="/admin" id="admin" class="font-rubik font-[400] text-black text-[30px]">
                 Admin
               </a>';
+      } else if ($user->role_id == 2) {
+        echo '<a href="/user-orders" id="user" class="font-rubik font-[400] text-black text-[30px]">
+                Orders
+              </a>';
       }
     @endphp
     

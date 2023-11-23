@@ -18,10 +18,13 @@ class ChatController extends Controller
         $userId = $user->id;
         
         $this->expired();
+        $doctors = [];
 
-        if($user->role_id == 2)
+
+        if($user->role_id == 2 || $user->role_id == 3)
         {
             $payments = Payment::where('user_id', $user->id)->where('status', 'paid')->get();
+
     
             $consultations = [];
             foreach ($payments as $payment) {
@@ -29,7 +32,6 @@ class ChatController extends Controller
                 array_push($consultations, $consultation);
             }
     
-            $doctors = [];
             foreach ($consultations as $consultation) {
                 $doctor = User::where('id', $consultation->dokter_id)->first();
                 array_push($doctors, $doctor);
@@ -39,22 +41,12 @@ class ChatController extends Controller
         {
             $doctor = User::with('consultations')->where('id', $userId)->first();
             $consultations = $doctor->consultations;
-            $doctors = [];
             $payments = Payment::where('consultation_id', $consultations->id)->where('status', 'paid')->get();
             foreach ($payments as $payment)
             {
                 $user = User::where('id', $payment->user_id)->first();
                 array_push($doctors, $user);
             }
-            // $doctors = User::join('chats', 'users.id', '=', 'chats.sender_id')
-            //             ->where(function ($query) use ($userId) {
-            //                 $query->where('chats.sender_id', $userId) 
-            //                     ->orWhere('chats.receiver_id', $userId); 
-            //             })
-            //             ->where('users.id', '<>', $userId) 
-            //             ->select('users.*')
-            //             ->distinct()
-            //             ->get();
         }
         
     

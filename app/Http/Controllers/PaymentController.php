@@ -69,6 +69,7 @@ class PaymentController extends Controller
 
         return response()->json([
             'data' => strtolower($result['status']),
+            'payment_url' => $result['invoice_url']
         ]);
     }
 
@@ -109,6 +110,22 @@ class PaymentController extends Controller
     public function paymentStatus($id)
     {
         $payment = Payment::where('consultation_id', $id)->first();
+
+        if(!$payment) {
+            return response()->json([
+                'status' => 'not found'
+            ]);
+        }
+        return response()->json([
+            'status' => $payment->status,
+            'payment_url' => $payment->payment_url,
+        ]);
+    }
+
+    public function showConsultation($id)
+    {
+        $consultation = Consultation::where('dokter_id', $id)->first();
+        $payment = Payment::where('consultation_id', $consultation->id)->first();
 
         if(!$payment) {
             return response()->json([

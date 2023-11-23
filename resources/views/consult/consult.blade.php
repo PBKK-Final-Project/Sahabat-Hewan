@@ -41,7 +41,7 @@
           <div class="flex flex-col w-[300px] h-[450px] bg-[#D5DAF7] rounded-lg justify-center items-center gap-y-5 ">
             <div class="w-[215px] h-[305px] bg-white rounded-lg flex flex-col justify-center items-center gap-y-4">
               <div class="w-[98px] h-[98px] rounded-full bg-[#F2F2F2] border border-black">
-                <img src="/storage/images/{{$consultations[$loop2]->dokters->avatar}}" class="object-contain bg-no-repeat" alt="">
+                <img src="/storage/product/images/{{$consultations[$loop2]->dokters->avatar}}" class="object-contain bg-no-repeat" alt="">
               </div>
               <h1 class="font-rubik font-[500] text-black text-[25px] text-center">
                 {{ $consultations[$loop2]->dokters->name }}
