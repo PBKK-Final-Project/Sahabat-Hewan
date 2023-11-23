@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with(['categories', 'types', 'product_reviews'])->get();
+        $products = Product::with(['categories', 'types', 'product_reviews', 'ratings'])->get();
         
         return view('shop.index', ['products' => $products]);
     }
@@ -27,9 +27,30 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::with(['categories', 'types', 'product_reviews.users'])->find($id);
+        $product = Product::with(['categories', 'types', 'product_reviews.users', 'ratings'])->find($id);
 
-        return view('shop.product-detail', ['product' => $product]);
+        // get average rating
+        $ratings = $product->ratings;
+        $totalRating = 0;
+        foreach($ratings as $rating)
+        {
+            $totalRating += $rating->rating;
+        }
+        $averageRating = 0;
+        if(count($ratings) > 0)
+        {
+            $averageRating = $totalRating / count($ratings);
+        }
+
+        // get user rating
+        $user = auth()->user();
+        $userRating = 0;
+        if($user)
+        {
+            $userRating = $product->ratings()->where('user_id', $user->id)->first();
+        }
+
+        return view('shop.product-detail', ['product' => $product, 'averageRating' => $averageRating, 'userRating' => $userRating] );
     }
 
     public function showByCategoryAndType($categoryId, $typeId)

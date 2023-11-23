@@ -24,15 +24,31 @@ class OrderController extends Controller
     public function index()
     {
         // $orders = Order::orderBy('id','desc')->paginate(10);
-        $orders = Order::with(['order_products', 'order_products.products'])->orderBy('id', 'desc')->get();
+        $user = auth()->user();
+        $orders = Order::with(['order_products', 'order_products.products', 'users'])->orderBy('id', 'desc')->where('user_id', $user->id)->get();
+
+        $orders->toArray();
+        return view('admin.user-orders', ['orders'=> $orders]);
+    }
+
+    public function orderData()
+    {
+        $orders = Order::with(['order_products', 'order_products.products', 'users'])->orderBy('id', 'desc')->get();
 
         $orders->toArray();
 
         return response()->json([
             'data' => $orders
         ]);
+    }
 
-        // return view('admin.user-orders', ['orders'=> $orders]);
+    public function orders()
+    {
+        $orders = Order::with(['order_products', 'order_products.products', 'users'])->orderBy('id', 'desc')->get();
+
+        $orders->toArray();
+
+        return view('admin.admin-orders', ['orders'=> $orders]);
     }
 
     public function createPayment(Request $request)
@@ -104,5 +120,16 @@ class OrderController extends Controller
     public function paymentStatus($id)
     {
 
+    }
+
+    public function updateShippingStatus(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $order->shipping_status = $request->shipping_status;
+        $order->save();
+
+        return response()->json([
+            'data' => $order
+        ]);
     }
 }

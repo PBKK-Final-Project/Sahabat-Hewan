@@ -320,7 +320,7 @@ $.ajaxSetup({
     <div class="grid grid-cols-4 gap-20 grid-flow-row w-full " id="products">
       @foreach ($products as $product)
         <a href="/product-detail/{{$product->id}}">
-          <div class="flex flex-col w-[288px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer" >
+          <div class="flex flex-col w-[400px] justify-center items-center px-5 shadow-lg py-5 rounded-md cursor-pointer" >
             <div class="w-full h-[213px]">
               <img src="/storage/product/images/{{$product->image}}" class="w-full h-full object-cover" alt="{{$product->shortname}}">
             </div>
@@ -337,6 +337,32 @@ $.ajaxSetup({
             <div class="w-full flex justify-start items-center">
               <p class="font-rubik font-[300] text-left px-2 text-[18px]">
                 ulasan {{$product->product_reviews->count()}}
+              </p>
+              <p class="font-rubik font-[300] text-left px-2 text-[18px]">
+                Rating
+                {{-- calculate rating  --}}
+                @php
+                  $rating = 0;
+                  $count = 0;
+                  foreach ($product->ratings as $rate) {
+                    $rating += $rate->rating;
+                    $count++;
+                  }
+                  if($count != 0)
+                  {
+                    $rating = $rating / $count;
+                  }
+                  else
+                  {
+                    $rating = 0;
+                  }
+                @endphp
+
+
+                {{$rating}}
+                @for ($i = 0; $i < (int)$rating; $i++)
+                  ⭐
+                @endfor
               </p>
             </div>
           </div>

@@ -9,6 +9,28 @@ $.ajaxSetup({
       }
   });
   $(document).ready(function () {
+
+    $.ajax({
+      url: "/consultation/" + {{$consultation->dokters->id}},
+      method: 'GET',
+      success: function(data)
+      {
+        if(data.status == "not found")
+        {
+          // add hidden class to a tag with id payment_url
+          $('#payment_url').addClass('hidden');
+          return;
+        }
+        // set url to href in a tag with id payment_url
+        $('#payment_url').attr('href', data.payment_url);
+        // remove hidden class from a tag with id payment_url
+        $('#payment_url').removeClass('hidden');
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
+    });
+
     let consultation_id = $('#consultation-id').val();
     console.log('consultation id: ' + consultation_id);
 
@@ -45,6 +67,8 @@ $.ajaxSetup({
         $('#button-pay').addClass('hidden');
         $('#button-process').addClass('hidden');
         $('#button-consult').removeClass('hidden');
+
+        window.location.reload();
       }
     });
 
@@ -125,6 +149,13 @@ $.ajaxSetup({
           success: function(data)
           {
             console.log(data);
+            // add a tag to the url
+            let url = data.payment_url;
+            console.log("url", url);
+            // open url in new tab
+            window.open(url, '_blank');
+
+            window.location.reload();
           },
           error: function(xhr, status, error) {
             console.error(error);
@@ -150,7 +181,7 @@ $.ajaxSetup({
   </div>
   <div class="w-[90%] mx-auto flex justify-center items-center gap-x-10 mt-10">
     <div class="w-[400px] h-[536px] bg-[#B9B7EA]  rounded-xl bg-[url('/storage/images/{{$consultation->dokters->avatar}}')] bg-contain bg-no-repeat p-2 flex justify-center items-center">
-      <img src="/storage/images/{{$consultation->dokters->avatar}}" class="objec-contain bg-no-repeat" alt="">
+      <img src="/storage/product/images/{{$consultation->dokters->avatar}}" class="objec-contain bg-no-repeat" alt="">
     </div>
     <div class="w-[884px] h-[536px] bg-white p-5 rounded-xl">
       <div class="w-full h-full bg-[#F2F2F2] rounded-xl border flex flex-col justify-start items-start gap-5 px-5 py-5">
@@ -173,6 +204,12 @@ $.ajaxSetup({
     </div>
   </div>
 
+  <div class="mt-10 flex mx-auto justify-center items-center">
+    <a href="" id="payment_url" class="px-10 hidden py-2 bg-blue-500 text-white rounded-xl font-inter font-[700] text-[30px] cursor-pointer" id="button-pay">
+      Check
+    </a>
+  </div>
+
   <div class="w-[306px] h-[248px] mx-auto mt-16 bg-white rounded-3xl flex flex-col justify-center items-center">
     <h1 class="font-inter font-[700] text-[30px] text-black">
       Estimated Total
@@ -181,6 +218,7 @@ $.ajaxSetup({
       Rp. 20,000.00
     </p>
     <div class="w-full h-[2px] bg-black my-5"></div>
+  
     <div class="px-5 py-2 bg-black text-white rounded-xl font-inter font-[700] text-[30px] cursor-pointer" id="button-pay">
       Pay
     </div>

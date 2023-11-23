@@ -18,7 +18,7 @@
         console.log('user data', data);
         $('#username').html(data.data.name);
         // add <img> tag to #user-profile
-        $('#user-profile').html('<img src="' + '/storage/images/' + data.data.avatar + '" class="w-full h-full object-cover rounded-full" alt="">');
+        $('#user-profile').html('<img src="' + '/storage/product/images/' + data.data.avatar + '" class="w-full h-full object-cover rounded-full" alt="">');
         $('#user-point').html(data.data.point);
       },
       error: function(error)
