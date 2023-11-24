@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailToUser;
+use App\Mail\PaymentMail;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Str;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
@@ -61,11 +65,6 @@ class OrderController extends Controller
         // get all user carts
         $carts = $user->carts()->get();
 
-        // carts has relation belongs to products
-        // after get carts we can get products data
-        // we can substract product stock with cart quantity
-        // if product stock is less than cart quantity, we can't continue the payment process
-        // after that delete all user carts
 
         $params = [
             'external_id' => (string) Str::uuid(),
@@ -112,10 +111,85 @@ class OrderController extends Controller
             $cart->delete();
         }
 
-        return response()->json(['status'=> 'success']);
+        // Mail::to($email)->send(new PaymentMail($user->name, $order, 'Terima kasih sudah melakukan order untuk produk'));
+
+        SendEmailToUser::dispatch($email, $user->name, $order, 'Terima kasih sudah melakukan order untuk produk')->delay(now()->addSeconds(10));
+
+        return redirect('/user-orders');
 
     }
 
+    public function buy(Request $request)
+    {
+        // get users data
+        $user = auth()->user();
+        $email = $user->email;
+
+        $total = $request->quantity;
+        $product_id = $request->product_id;
+
+        $product = Product::find($product_id);
+        
+        $price = $product->price * $total;
+        
+        $params = [
+            'external_id' => (string) Str::uuid(),
+            'email' => $email,
+            'description' => 'Pembayaran Konsultasi',
+            'amount' => $price,
+            'redirect_url' => 'localhost:8000/consult'
+        ];
+        
+        $apiInstance = new InvoiceApi();
+
+        $createInvoice = new CreateInvoiceRequest($params);
+
+        $result = $apiInstance->createInvoice($createInvoice);
+
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->email = $email;
+        $order->external_id = $params['external_id'];
+        $order->shipping_status = 'processing';
+        $order->paid_status = 'settled';
+        $order->payment_url = $result['invoice_url'];
+
+        $order->save();
+
+        if ($product->stock < $total) {
+            return response()->json([
+                'data' => 'stock is not enough'
+            ]);
+        } 
+
+        $product->stock = $product->stock - $total;
+
+        $product->save();
+
+
+        $order_product = new OrderProduct();
+        $order_product->product_id = $product->id;
+        $order_product->order_id = $order->id;
+        $order_product->quantity = $total;
+        $order_product->save();
+
+        SendEmailToUser::dispatch($email, $user->name, $order, 'Terima kasih sudah melakukan order untuk produk')->delay(now()->addSeconds(10));
+
+        return response()->json([
+            'data' => $order
+        ]);
+        
+    }
+
+
+    // function for deleting data order_product where paid_status = 'settled
+    public function deleteOrderProduct()
+    {
+        $order_products = OrderProduct::where('paid_status', 'settled')->get();
+        foreach ($order_products as $order_product) {
+            $order_product->delete();
+        }
+    }
 
     public function paymentStatus($id)
     {

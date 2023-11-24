@@ -68,6 +68,40 @@ $.ajaxSetup({
 
     });
 
+
+    $('#btn-buy').click(function(e) {
+      e.preventDefault();
+      inputStock = parseInt($('#input-stock').val());
+      let idProduct = $('#id-product').val();
+      console.log("id product: " + idProduct);
+      console.log("quantity: " + inputStock);
+
+
+      $.ajax({
+        url: '/buy',
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+          'Accept': 'application/json',
+        },
+        data: {
+          product_id: idProduct,
+          quantity: inputStock,
+        },
+        success: function (response) {
+          console.log(response);
+          alert('Berhasil membeli produk');
+          // redirect to /users-orders
+          window.location.href = "/user-orders";
+        },
+        error: function (response) {
+          console.log(response);
+          alert('Gagal membeli produk');
+        }
+      });
+
+    });
+
     $('#btn-tambah').click(function (e) { 
       e.preventDefault();
       inputStock = parseInt($('#input-stock').val());
@@ -203,7 +237,7 @@ $.ajaxSetup({
     </div>
     {{-- add buy button and cart button --}}
     <div class="flex flex-row justify-between items-center w-full">
-      <button class="w-[150px] h-[50px] rounded-xl bg-white flex border border-[#443E7C] justify-center items-center">
+      <button id="btn-buy" class="w-[150px] h-[50px] rounded-xl bg-white flex border border-[#443E7C] justify-center items-center">
         <p class="font-rubik font-[300] text-[20px] text-[#443E7C]">Buy Now</p>
       </button>
       <button class="w-[150px] h-[50px] rounded-xl bg-[#443E7C] flex justify-center items-center" id="keranjang">

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageNotification;
 use App\Events\WebhookNotification;
+use App\Jobs\SendEmailToUser;
+use App\Mail\PaymentMail;
 use App\Models\Consultation;
 use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Str;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
@@ -65,7 +68,9 @@ class PaymentController extends Controller
         event(new MessageNotification($payment->consultation_id, strtolower($result['status'])));
         // event(new WebhookNotification($payment->consultation_id, strtolower($result['status'])));
 
+        // Mail::to($email)->send(new PaymentMail($user->name, $payment, 'Terima kasih sudah melakukan pembayaran untuk Konsultasi'));
 
+        SendEmailToUser::dispatch($email, $user->name, $payment, 'Terima kasih sudah melakukan pembayaran untuk Konsultasi')->delay(now()->addSeconds(10));
 
         return response()->json([
             'data' => strtolower($result['status']),
