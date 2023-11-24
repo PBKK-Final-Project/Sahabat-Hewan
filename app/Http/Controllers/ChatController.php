@@ -8,6 +8,7 @@ use App\Models\Consultation;
 use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class ChatController extends Controller
@@ -23,7 +24,11 @@ class ChatController extends Controller
 
         if($user->role_id == 2 || $user->role_id == 3)
         {
-            $payments = Payment::where('user_id', $user->id)->where('status', 'paid')->get();
+
+            $payments = Cache::remember('payments_2', 60, function () {
+                $user = auth()->user();
+                return Payment::where('user_id', $user->id)->where('status', 'paid')->get();
+            });
 
     
             $consultations = [];
@@ -39,9 +44,14 @@ class ChatController extends Controller
         }
         else if ($user->role_id == 1)
         {
-            $doctor = User::with('consultations')->where('id', $userId)->first();
-            $consultations = $doctor->consultations;
-            $payments = Payment::where('consultation_id', $consultations->id)->where('status', 'paid')->get();
+
+            $payments = Cache::remember('payments_1', 60, function () {
+                $user = auth()->user();
+                $doctor = User::with('consultations')->where('id', $user->id)->first();
+                $consultations = $doctor->consultations;
+                return Payment::where('consultation_id', $consultations->id)->where('status', 'paid')->get();
+            });
+
             foreach ($payments as $payment)
             {
                 $user = User::where('id', $payment->user_id)->first();

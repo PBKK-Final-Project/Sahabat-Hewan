@@ -9,50 +9,45 @@
       }
   });
 
-  
+  @for ($j = 0; $j < count($orders); $j++)
+{
+
+    $(document).ready(function () {
+        console.log({{$orders[$j]->id}});
+        $('#shipping_status-' + {{$orders[$j]->id}}).change(function(e)
+        {
+          e.preventDefault();
+          
+          $.ajax({
+            url: '/update-shipping-status/' + {{$orders[$j]->id}} ,
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+              'Accept': 'application/json',
+            },
+            data: {
+              shipping_status: $('#shipping_status-' + {{$orders[$j]->id}}).val(),
+            },
+            success: function(response)
+            {
+              console.log(response);
+              alert('Berhasil mengubah status pengiriman');
+              location.reload();
+            },
+            error: function(error)
+            {
+              console.log(error);
+              alert('Gagal mengubah status pengiriman');
+            }
+          })
+        });
+      });
+    }
+    @endfor
 
 </script>
 
-$(document).ready(function () {
 
-  @for ($j = 0; $j < count($orders); $j++)
-  {
-    @vite(['resources/js/app.js'])
-  
-    <script type="module">
-      console.log({{$orders[$j]->id}});
-      $('#shipping_status-' + {{$orders[$j]->id}}).change(function(e)
-      {
-        e.preventDefault();
-        
-        $.ajax({
-          url: '/update-shipping-status/' + {{$orders[$j]->id}} ,
-          method: 'POST',
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Accept': 'application/json',
-          },
-          data: {
-            shipping_status: $('#shipping_status-' + {{$orders[$j]->id}}).val(),
-          },
-          success: function(response)
-          {
-            console.log(response);
-            alert('Berhasil mengubah status pengiriman');
-            location.reload();
-          },
-          error: function(error)
-          {
-            console.log(error);
-            alert('Gagal mengubah status pengiriman');
-          }
-        })
-      });
-    </script>
-  }
-  @endfor
-  
-    });
 
 <div class="w-[80%] mx-auto">
   @php

@@ -6,19 +6,26 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with(['categories', 'types', 'product_reviews', 'ratings'])->get();
+
+        $products = Cache::remember('products', 60, function () {
+            return Product::with(['categories', 'types', 'product_reviews', 'ratings'])->get();
+        });
         
         return view('shop.index', ['products' => $products]);
     }
 
     public function getAllProducts()
     {
-        $products = Product::with(['categories', 'types', 'product_reviews'])->get();
+
+        $products = Cache::remember('products', 60, function () {
+            return Product::with(['categories', 'types', 'product_reviews', 'ratings'])->get();
+        });
         
         return response()->json([
             'data' => $products,

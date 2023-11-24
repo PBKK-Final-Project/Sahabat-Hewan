@@ -117,6 +117,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/cart-payment', [OrderController::class,'createPayment']);
+    Route::post('/buy', [OrderController::class,'buy']);
 
     Route::get('/user-orders', [OrderController::class,'index']);
     Route::get('/user-order-data', [OrderController::class,'orderData']);
