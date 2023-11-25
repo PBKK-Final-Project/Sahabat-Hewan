@@ -31,14 +31,6 @@
             </h1>
 <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400 text-center">Find Some Information About Your Maw Paw Here !</p>
 
-<!-- <div class="justify-center items-center py-4 flex">
-    <div class="max-w-[32rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-            <h5 class="p-5 text-1xl font-bold text-[18px] tracking-tight text-[#FFEBFF] dark:text-white bg-purple-400 text-center rounded-t-lg">Noteworthy technology acquisitions 2021</h5>
-            <img class="rounded-b-lg" src="{{ asset('images/orang-anjing2.png') }}" alt="" />
-        </a>
-    </div>
-</div> -->
 <div class="justify-center items-center py-4 flex">
     <div class="w-[44rem]">
 
@@ -47,49 +39,12 @@
             <a href="/academy/{{ $academy->slug }}">
                 <h5 class="p-4 text-1xl font-bold text-[18px] tracking-tight text-[#FFEBFF] dark:text-white bg-purple-400 text-center rounded-t-lg">{{ $academy->title }}</h5>
                 <div class="relative">
-                    <img class="w-full h-60 object-cover rounded-b-lg" src="{{ $academy->image }}" alt="" />
+                    <img class="w-full h-60 object-cover object-bottom rounded-b-lg" src="{{ $academy->image }}" alt="" />
                 </div>
             </a>
         </div>
         @endforeach
     </div>
 </div>
-
-
-    <!-- <div class="justify-center items-center py-4 flex">
-    <div>
-        <div class="pt-[1rem]">
-        <div class="mb-[1rem] flex gap-8 py-8 flex-row rounded-lg items-center bg-purple-200">
-                <div class="ml-8 w-[36rem]">
-                    <h2 class="font-bold text-[1.2rem]">Chat & Inbox</h2>
-                </div>
-                <button class="bg-yellow-600 hover:bg-yellow-800 font-bold text-white justify-center items-center py-2 px-4">
-                    Check
-                </button>
-                </div>
-
-        <div class="mb-[1rem] flex gap-5 py-8 flex-row rounded-lg items-center bg-purple-200">
-                <div class="ml-8 w-[36rem]">
-                    <h2 class="font-bold text-[1.2rem]">Pet Profile</h2>
-                    <p>Configure your Pet Profile to get Personalized Content !</p>
-                </div>
-                <button class="bg-yellow-600 hover:bg-yellow-800 font-bold text-white justify-center items-center py-2 px-4">
-                    Configure
-                </button>
-                </div>
-
-        <div class="flex gap-3 py-8 flex-row rounded-lg items-center bg-purple-200">
-                <div class="ml-8 w-[36rem]">
-                    <h2 class="font-bold text-[1.2rem]">Feeling Lost ?</h2>
-                    <p>Answer Questions to help you get started !</p>
-                </div>
-                <button class="bg-yellow-600 hover:bg-yellow-800 font-bold text-white justify-center items-center py-2 px-4">
-                    Answer Now
-                </button>
-                </div>
-        
-        </div>
-    </div>
-</div> -->
 @include('footer.footer')
 @endsection

@@ -17,6 +17,17 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price', 8, 2);
             $table->string('image');
+            $table->string('releaseDate');
+            $table->string('lastUpdated');
+            $table->string('memberCount');
+            $table->string('duration');
+            $table->string('level');
+            $table->string('instructor');
+            $table->string('category');
+            $table->string('additional_materials');
+            $table->string('certificate');
+            $table->string('consult');
+            $table->string('youtubeLink');
             $table->string('slug')->unique();
             $table->timestamps();
         });
