@@ -109,7 +109,7 @@ $.ajaxSetup({
     // });
 
     $.ajax({
-      url: '/payment-status/' + consultation_id,
+      url: '/payment-status/' + consultation_id + '/' + {{auth()->user()->id}},
       method: 'GET',
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -123,13 +123,21 @@ $.ajaxSetup({
           $('#button-pay').addClass('hidden');
           $('#button-process').addClass('hidden');
           $('#button-consult').removeClass('hidden');
+          return ;
         }
         else if(data.status == 'settled')
         {
           $('#button-pay').addClass('hidden');
           $('#button-process').removeClass('hidden');
           $('#button-consult').addClass('hidden');
+
+          return;
         }
+
+        $('#button-pay').removeClass('hidden'); 
+          $('#button-process').addClass('hidden');
+          $('#button-consult').addClass('hidden');
+          $('#payment_url').addClass('hidden');
       },
       error: function(xhr, status, error) {
         console.error(error);
@@ -205,7 +213,7 @@ $.ajaxSetup({
   </div>
 
   <div class="mt-10 flex mx-auto justify-center items-center">
-    <a href="" id="payment_url" class="px-10 hidden py-2 bg-blue-500 text-white rounded-xl font-inter font-[700] text-[30px] cursor-pointer" id="button-pay">
+    <a href="" id="payment_url" class="px-10 hidden py-2 bg-blue-500 text-white rounded-xl font-inter font-[700] text-[30px] cursor-pointer">
       Check
     </a>
   </div>

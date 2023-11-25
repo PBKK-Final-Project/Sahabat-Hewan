@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/payment/{id}', [PaymentController::class, 'createPayment']);
 
-    Route::get('/payment-status/{id}', [PaymentController::class, 'paymentStatus']);
+    Route::get('/payment-status/{consultationId}/{id}', [PaymentController::class, 'paymentStatus']);
     Route::get('/consultation/{id}', [PaymentController::class, 'showConsultation']);
 
     // shop page

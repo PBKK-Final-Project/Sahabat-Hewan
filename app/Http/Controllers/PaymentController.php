@@ -112,9 +112,9 @@ class PaymentController extends Controller
     }
 
 
-    public function paymentStatus($id)
+    public function paymentStatus($consultationId ,$id)
     {
-        $payment = Payment::where('consultation_id', $id)->first();
+        $payment = Payment::where('consultation_id', $consultationId)->where('user_id', $id)->first();
 
         if(!$payment) {
             return response()->json([
