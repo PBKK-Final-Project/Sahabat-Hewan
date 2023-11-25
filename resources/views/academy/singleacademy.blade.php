@@ -75,13 +75,13 @@
 
 <div class="px-20 mt-10 grid grid-cols-1 lg:grid-cols-8 gap-6">
     <!-- youtube (4/8 width) -->
-    <section id="about" class="lg:col-span-4 rounded overflow-hidden">
+    <section id="about" class="lg:col-span-5 rounded overflow-hidden">
         <iframe class="w-full h-96" src="{{ $academy->youtubeLink }}" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
     </section>
     
 
     <!-- Description (4/8 width) -->
-    <div class="lg:col-span-4">
+    <div class="lg:col-span-3">
         <div class="flex justify-center items-center space-x-2">
             <a href="#about" class="inline-block px-4 py-2 bg-gray-800 text-white rounded-full text-center hover:bg-blue-900 transition duration-300">About</a>
             <a href="#lessons" class="inline-block px-4 py-2 bg-gray-800 text-white rounded-full text-center hover:bg-blue-900 transition duration-300">Lessons</a>
@@ -90,14 +90,52 @@
             <a href="#skills" class="inline-block px-4 py-2 bg-gray-800 text-white rounded-full text-center hover:bg-blue-900 transition duration-300">Develop Your Skills</a>
         </div>
 
-        <div class="bg-white mt-4 p-4 rounded-md">
-            <h2 class="text-xl font-bold mb-2">Description</h2>
-            <p>{!! $academy->description !!}</p>
+        <div class="mb-[2rem] pt-8">
+            <p class="p-4 text-gray-600 dark:text-white bg-gray-100 text-center rounded-t-lg">32 bagian • 352 pelajaran • 28j 14m total durasi</p>
+            <div class="relative bg-gray-100 rounded-b-lg">
+                <div class="px-4 pb-4 space-y-4">
+                    <div class="bg-white flex p-4 rounded">
+                        <img src="/images/play.svg" alt="Consult Yes">
+                        <div class="flex-grow ml-4 mr-4 flex justify-between items-center">
+                            <div>
+                                <h2>Section 1: Introduction</h2>
+                            </div>
+                            <div>
+                                <h2>9 min</h2>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="bg-white flex p-4 rounded">
+                        <img src="/images/play.svg" alt="Consult Yes">
+                        <div class="flex-grow ml-4 mr-4 flex justify-between items-center">
+                            <div>
+                                <h2>Section 2: Make a High Five 👋🏻</h2>
+                            </div>
+                            <div>
+                                <h2>9 min</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-4 lg:col-span-4 flex justify-center items-center space-x-2">
+                <a href="#enrollMe" class="inline-block px-4 py-2 bg-gray-800 text-white rounded-full text-center hover:bg-blue-900 transition duration-300">Enroll Me</a>
+            </div>
         </div>
-        <div class="flex justify-center items-center space-x-2">
-            <a href="#enrollMe" class="inline-block px-4 py-2 bg-gray-800 text-white rounded-full text-center hover:bg-blue-900 transition duration-300">Enroll Me</a>
-        </div>
+        
     </div>
 </div>
 
+<div class="px-20 mt-10 grid grid-cols-1 lg:grid-cols-8 gap-6">
+    <div class="lg:col-span-4 bg-white">
+        <h2 class="text-xl font-bold mb-2">Description</h2>
+        <p>{!! $academy->description !!}</p>
+    </div>
+    {{-- <div class="lg:col-span-4 flex justify-center items-center space-x-2">
+        <a href="#enrollMe" class="inline-block px-4 py-2 bg-gray-800 text-white rounded-full text-center hover:bg-blue-900 transition duration-300">Enroll Me</a>
+    </div> --}}
+</div>
+
+@include('footer.footer')
 @endsection
