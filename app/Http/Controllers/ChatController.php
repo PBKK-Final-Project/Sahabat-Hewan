@@ -4,26 +4,62 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageNotification;
 use App\Models\Chat;
+use App\Models\Consultation;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class ChatController extends Controller
 {
     public function index()
     {
-        $userId = auth()->user()->id;
+        $user = auth()->user();
+        $userId = $user->id;
+        
+        $this->expired();
+        $doctors = [];
 
-        $doctors = User::join('chats', 'users.id', '=', 'chats.sender_id')
-                    ->where(function ($query) use ($userId) {
-                        $query->where('chats.sender_id', $userId) 
-                            ->orWhere('chats.receiver_id', $userId); 
-                    })
-                    ->where('users.id', '<>', $userId) 
-                    ->select('users.*')
-                    ->distinct()
-                    ->get();
 
+        if($user->role_id == 2 || $user->role_id == 3)
+        {
+
+            $payments = Cache::remember('payments_2', 60, function () {
+                $user = auth()->user();
+                return Payment::where('user_id', $user->id)->where('status', 'paid')->get();
+            });
+
+    
+            $consultations = [];
+            foreach ($payments as $payment) {
+                $consultation = Consultation::where('id', $payment->consultation_id)->first();
+                array_push($consultations, $consultation);
+            }
+    
+            foreach ($consultations as $consultation) {
+                $doctor = User::where('id', $consultation->dokter_id)->first();
+                array_push($doctors, $doctor);
+            }
+        }
+        else if ($user->role_id == 1)
+        {
+
+            $payments = Cache::remember('payments_1', 60, function () {
+                $user = auth()->user();
+                $doctor = User::with('consultations')->where('id', $user->id)->first();
+                $consultations = $doctor->consultations;
+                return Payment::where('consultation_id', $consultations->id)->where('status', 'paid')->get();
+            });
+
+            foreach ($payments as $payment)
+            {
+                $user = User::where('id', $payment->user_id)->first();
+                array_push($doctors, $user);
+            }
+        }
+        
+    
         return response()->json([
             'success' => true,
             'message' => 'List Dokter',
@@ -32,6 +68,17 @@ class ChatController extends Controller
             'me' => $userId,
         ]);
     }
+
+    public function expired()
+    {
+        $payments = Payment::all();
+        foreach ($payments as $payment) {
+            if ($payment->expired_date < date('Y-m-d H:i:s')) {
+                $payment->delete();
+            }
+        }
+    }
+
     public function myChat($dokter_id)
     {
         // get chat data where sender_id = auth()->user()->id and receiver_id = dokter_id order or where sender_id = dokter_id and receiver_id = auth()->user()->id by created_at asc

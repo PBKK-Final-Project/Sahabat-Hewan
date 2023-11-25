@@ -10,12 +10,40 @@
       </h1>
     </div>
     <div class="flex flex-row justify-center items-center gap-x-2">
-      <a href="/register" class="flex w-[180px] h-[43px] border border-[#FFB246] rounded-lg justify-center items-center font-inter text-[20px] text-black font-[600]">
+      {{-- <a href="/register" class="flex w-[180px] h-[43px] border border-[#FFB246] rounded-lg justify-center items-center font-inter text-[20px] text-black font-[600]">
         Sign Up 
       </a>
       <a href="/login" class="flex w-[180px] h-[43px] border border-[#FFB246] rounded-lg justify-center items-center font-inter text-[20px] text-black font-[600]">
         Log In 
-      </a>
+      </a> --}}
+
+
+      @if (Route::has('login'))
+            @auth
+                {{-- <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a> --}}
+                <a href="{{ url('/home') }}" class="flex w-[180px] h-[43px] border border-[#FFB246] rounded-lg justify-center items-center font-inter text-[20px] text-black font-[600]">
+                  Dashboard
+                </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+        
+                    <button type="submit" class="flex w-[180px] h-[43px] border border-[#FFB246] rounded-lg justify-center items-center font-inter text-[20px] text-black font-[600]">
+                        {{ __('Log Out') }}
+                    </button>
+                </form>
+            @else
+                {{-- <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a> --}}
+                <a href="{{ route('login') }}" class="flex w-[180px] h-[43px] border border-[#FFB246] rounded-lg justify-center items-center font-inter text-[20px] text-black font-[600]">
+                  Log In 
+                </a>
+                @if (Route::has('register'))
+                    {{-- <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a> --}}
+                    <a href="{{ route('register') }}" class="flex w-[180px] h-[43px] border border-[#FFB246] rounded-lg justify-center items-center font-inter text-[20px] text-black font-[600]">
+                      Sign Up 
+                    </a>
+                @endif
+            @endauth
+      @endif
     </div>
   </nav>
 

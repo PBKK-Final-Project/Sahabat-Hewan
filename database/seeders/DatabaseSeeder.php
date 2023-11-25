@@ -23,7 +23,12 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             ChatSeeder::class,
+            ConsultationSeeder::class,
+            TypeSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            ProductReviewSeeder::class,
             AcademySeeder::class,
         ]);
-    }
+    }   
 }
