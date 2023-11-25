@@ -1,13 +1,22 @@
 <?php
 
 use App\Events\MessageNotification;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landingPage.landingPage');
 });
 
 Route::get('/dashboard', function () {
@@ -27,9 +36,7 @@ Route::middleware('auth')->group(function () {
         return view('landingPage.landingPage');
     });
     
-    Route::get('/consult', function () {
-        return view('consult.consult');
-    });
+    Route::get('/consult', [ConsultationController::class, 'index']);
 
     Route::get('/academy', function() {
         return view('academy.academy');
@@ -55,7 +62,81 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sender-receiver', [ChatController::class, 'senderReceiver']);
 
+    // Dokter page
+    Route::get('/dokter-detail/{id}', [ConsultationController::class, 'show']);
+
+    Route::get('/dokter-detail-data/{id}', [UserController::class, 'showData']);
+
+    Route::post('/payment/{id}', [PaymentController::class, 'createPayment']);
+
+    Route::get('/payment-status/{id}', [PaymentController::class, 'paymentStatus']);
+    Route::get('/consultation/{id}', [PaymentController::class, 'showConsultation']);
+
+    // shop page
+    Route::get('/shop', [ProductController::class, 'index']);
+    
+    Route::get('/product-detail/{id}', [ProductController::class, 'show']);
+    
+    Route::get('/products/{categoryId}/{typeId}', [ProductController::class, 'showByCategoryAndType']);
+
+    Route::get('/products-search/{keyword}', [ProductController::class, 'search']);
+    Route::get('/products-search', [ProductController::class, 'getAllProducts']);
+    Route::get('/products-sort/{sort}', [ProductController::class, 'sort']);
+    
+    Route::post('/product-review', [ProductReviewController::class,'storeReview']);
+
+    // Cart page
+    Route::get('/cart', [CartController::class,'index']);
+    Route::post('/cart', [CartController::class,'store']);
+    Route::delete('/cart/{id}', [CartController::class,'destroy']);
+
+    // admin dashboard
+    Route::get('/admin', function()
+    {
+        return view('admin.admin-dashboard');
+    })->middleware('admin-dashboard');
+
+    // admin category
+
+    Route::middleware('admin-dashboard')->group(function () {
+        Route::get('/create-category', [CategoryController::class, 'getCategory']);
+        Route::post('/update-category/{id}', [CategoryController::class, 'updateCategory']);
+        Route::post('/create-category', [CategoryController::class, 'storeCategory']);
+        Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory']);
+    
+        // admin type
+        Route::get('/create-type', [TypeController::class, 'getType']);
+        Route::post('/update-type/{id}', [TypeController::class, 'updateType']);
+        Route::post('/create-type', [TypeController::class, 'storeType']);
+        Route::delete('/delete-type/{id}', [TypeController::class, 'deleteType']);
+    
+        Route::get('/create-product', [ProductController::class,'create']);
+        Route::post('/create-product', [ProductController::class,'store']);
+        Route::get('/products', [ProductController::class,'products']);
+    
+        Route::delete('/delete-product/{id}', [ProductController::class,'destroy']);
+        Route::get('/edit-product/{id}', [ProductController::class,'edit']);
+        Route::post('/edit-product/{id}', [ProductController::class,'update']);
+        Route::post('/update-shipping-status/{id}', [OrderController::class,'updateShippingStatus']);
+    });
+
+
+    Route::post('/cart-payment', [OrderController::class,'createPayment']);
+    Route::post('/buy', [OrderController::class,'buy']);
+
+    Route::get('/user-orders', [OrderController::class,'index']);
+    Route::get('/user-order-data', [OrderController::class,'orderData']);
+    Route::get('/orders', [OrderController::class,'orders']);
+
+    // rating
+    Route::post('/rating/{id}', [RatingController::class,'store']);
+
+
 });
+
+// Route::get('/cart', function () {
+//     return view('shop.cart-page');
+// });
 
 
 
