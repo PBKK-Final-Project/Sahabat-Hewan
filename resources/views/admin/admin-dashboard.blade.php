@@ -18,6 +18,9 @@
     <a href="/create-product" class="font-rubik font-[400] text-white text-[30px]">
       Create Product
     </a>
+    <a href="/create-academy" class="font-rubik font-[400] text-white text-[30px]">
+      Create Academy
+    </a>
     <a href="/products" class="font-rubik font-[400] text-white text-[30px]">
       Products
     </a>

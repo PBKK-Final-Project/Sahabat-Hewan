@@ -21,13 +21,13 @@
             <img src="/images/release.svg" alt="Global Icon" class="w-6 h-6">
         </div>
         <div class="mr-6">
-            <span class="text-black">Release date {{ $academy->releaseDate }}</span>
+            <span class="text-black">Release date {{ $academy->created_at }}</span>
         </div>
         <div class="ml-6 mr-2">
             <img src="/images/updated.svg" alt="Convert Icon" class="w-6 h-6">
         </div>
         <div>
-            <span class="text-black">Last updated {{ $academy->lastUpdated }}</span>
+            <span class="text-black">Last updated {{ $academy->updated_at }}</span>
         </div>
     </div>
 </div>

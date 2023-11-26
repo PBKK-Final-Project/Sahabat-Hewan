@@ -117,6 +117,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit-product/{id}', [ProductController::class,'edit']);
         Route::post('/edit-product/{id}', [ProductController::class,'update']);
         Route::post('/update-shipping-status/{id}', [OrderController::class,'updateShippingStatus']);
+
+        Route::get('/create-academy', [AcademyController::class, 'getAcademy']);
+        // Route::post('/create-academy', [AcademyController::class, 'storeAcademy']);
+
+        foreach (scandir($path = app_path('Http\Module')) as $dir) {
+            if (file_exists($filepath = "{$path}/{$dir}/Academy/Presentation/web.php")) {
+                require $filepath;
+            }
+        }
     });
 
 
@@ -129,6 +138,7 @@ Route::middleware('auth')->group(function () {
 
     // rating
     Route::post('/rating/{id}', [RatingController::class,'store']);
+
 
 
 });

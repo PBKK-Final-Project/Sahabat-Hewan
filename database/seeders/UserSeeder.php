@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'email' => 'dimasfadilah20@gmail.com',
             'password' => bcrypt('password'),
             'avatar' => 'profile.png',
-            'role_id' => 2,
+            'role_id' => 3,
             'alamat' => 'Jl. Raya Cikarang - Cibarusah, Cikarang Utara, Bekasi',
         ]);
 
