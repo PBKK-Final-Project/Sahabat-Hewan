@@ -39,7 +39,7 @@
             <a href="/academy/{{ $academy->slug }}">
                 <h5 class="p-4 text-1xl font-bold text-[18px] tracking-tight text-[#FFEBFF] dark:text-white bg-purple-400 text-center rounded-t-lg">{{ $academy->title }}</h5>
                 <div class="relative">
-                    <img class="w-full h-60 object-cover object-bottom rounded-b-lg" src="{{ $academy->image }}" alt="" />
+                    <img class="w-full h-60 object-cover object-bottom rounded-b-lg" src="/storage/academy/images/{{$academy->image}}" alt="" />
                 </div>
             </a>
         </div>

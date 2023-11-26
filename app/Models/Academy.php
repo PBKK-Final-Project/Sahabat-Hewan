@@ -15,8 +15,6 @@ class Academy extends Model
         'price',
         'image',
         'slug',
-        'releaseDate',
-        'lastUpdated',
         'memberCount',
         'duration',
         'level',

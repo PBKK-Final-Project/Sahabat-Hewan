@@ -13,20 +13,18 @@ return new class extends Migration
     {
         Schema::create('academies', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->decimal('price', 8, 2);
-            $table->string('image');
-            $table->string('releaseDate');
-            $table->string('lastUpdated');
-            $table->string('memberCount');
+            $table->string('title'); // done
+            $table->text('description'); //done
+            $table->decimal('price', 8, 2); //done
+            $table->string('image'); //done
+            $table->string('memberCount'); // default 0
             $table->string('duration');
-            $table->string('level');
-            $table->string('instructor');
-            $table->string('category');
-            $table->string('additional_materials');
-            $table->string('certificate');
-            $table->string('consult');
+            $table->string('level'); //done
+            $table->string('instructor'); //done
+            $table->string('category'); //done
+            $table->string('additional_materials'); //done
+            $table->string('certificate'); //done
+            $table->string('consult'); //done
             $table->string('youtubeLink');
             $table->string('slug')->unique();
             $table->timestamps();
