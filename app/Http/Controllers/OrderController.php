@@ -71,7 +71,7 @@ class OrderController extends Controller
             'email' => $email,
             'description' => 'Pembayaran Konsultasi',
             'amount' => $request->total,
-            'redirect_url' => 'localhost:8000/consult'
+            'redirect_url' => '/consult'
         ];
         
         $apiInstance = new InvoiceApi();
@@ -137,7 +137,7 @@ class OrderController extends Controller
             'email' => $email,
             'description' => 'Pembayaran Konsultasi',
             'amount' => $price,
-            'redirect_url' => 'localhost:8000/consult'
+            'redirect_url' => '/consult'
         ];
         
         $apiInstance = new InvoiceApi();

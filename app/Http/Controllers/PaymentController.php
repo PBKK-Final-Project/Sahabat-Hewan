@@ -35,7 +35,7 @@ class PaymentController extends Controller
             'email' => $email,
             'description' => 'Pembayaran Konsultasi',
             'amount' => $consultation->harga,
-            'redirect_url' => 'localhost:8000/consult'
+            'redirect_url' => url('/consult'),
         ];
 
         $apiInstance = new InvoiceApi();

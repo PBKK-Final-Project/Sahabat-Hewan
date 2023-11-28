@@ -50,7 +50,7 @@
       
                 $("#chat-header").text(`${dokterData.name}`);
       
-                var url = 'http://localhost:8000/mychat/' + dokter_id;
+                var url = '/mychat/' + dokter_id;
                 $("input[name='id-dokter']").val(dokter_id);
 
 
@@ -98,7 +98,7 @@
   function fetchDokter()
   {
     $.ajax({
-      url: 'http://localhost:8000/dokter',
+      url: '/dokter',
       method: 'GET',
       success: function(data) {
         var dokterDatas = data.data;
@@ -133,7 +133,7 @@
             // Set dokter id ke input hidden
             $("input[name='id-dokter']").val(dokterData.id);
 
-            var url = 'http://localhost:8000/mychat/' + dokterId;
+            var url = '/mychat/' + dokterId;
             fetchAndDisplayChatData(url, dokterData.id);
 
             // Tampilkan chat container
@@ -277,7 +277,7 @@
       var dokterId = $(this).find(`input[name="id-dokter"]`).val()
 
       $("#chat-data-input").val('');
-      var url = 'http://localhost:8000/mychat/' + dokterId;
+      var url = '/mychat/' + dokterId;
 
       console.log("id dokter", dokterId); 
       console.log("input chat", chatDataInput); 
