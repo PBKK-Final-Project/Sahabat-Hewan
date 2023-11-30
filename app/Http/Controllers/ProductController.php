@@ -258,15 +258,15 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->condition = $request->condition;
         $product->shortname = $request->shortname;
-        if($filename != '')
-        {
-            $oldImage = $product->image;
-            if($oldImage != '')
-            {
-                unlink(storage_path('\app\public\product\images\\' . $oldImage));
-            }
-            $product->image = $filename;
-        }
+        // if($filename != '')
+        // {
+        //     $oldImage = $product->image;
+        //     if($oldImage != '')
+        //     {
+        //         unlink(storage_path('\app\public\product\images\\' . $oldImage));
+        //     }
+        //     $product->image = $filename;
+        // }
         $product->save();
 
         return redirect('/products');
