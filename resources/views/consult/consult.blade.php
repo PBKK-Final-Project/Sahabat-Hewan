@@ -1,6 +1,7 @@
 @extends('layouts.mainLayout')
 @section('content')
 
+@include('navbar.navbar')
 @include('navbar.navbar-login')
 
 <div class="bg-white mt-[400px] my-32 bg-cover bg-no-repeat w-full  z-10">

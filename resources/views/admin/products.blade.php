@@ -1,6 +1,6 @@
 @include('admin.admin-dashboard');
 
-<div class="grid grid-cols-3 w-full  justify-items-center items-center gap-x-5 px-5 py-5 gap-y-14 grid-flow-row">
+<div class="grid grid-cols-3 w-full  justify-items-center items-center gap-x-5 mt-24 p-5 gap-y-14 grid-flow-row">
 
   @foreach ($products as $product)
     <div class="flex flex-col w-full bg-gray-200 shadow-md rounded-xl px-5 py-5 justify-start items-start gap-y-5">
