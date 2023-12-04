@@ -107,6 +107,15 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883
 
 https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Jobs/SendEmailToUser.php#L14-L43
 
+
+## BroadCasting
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/007e24b827886c860ef760d545f4ae97240ef8dd/resources/views/chat/index.blade.php#L23-L26
+
+## Mailing
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/007e24b827886c860ef760d545f4ae97240ef8dd/app/Mail/PaymentMail.php#L12-L57
+
 ## Jumlah Fitur
 <!-- page -->
 - [x] Home Page
@@ -140,8 +149,15 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883
 - [x] Join and View Academy
 - [x] Show Available Vets
 - [x] Consult Payment by Payment Gateway Xendit
-- [x] Consult Live Chat
+- [x] Consult Live Chat using Pusher Channel
 - [x] Pagination
+- [x] Status Order Update by admin 
+- [x] Order Consultation Email
+- [x] Order Product Email
+
+
+
+
 
 
 
