@@ -91,7 +91,7 @@
     </div>
     <div class="w-[50%]">
       <label for="video" class="block text-medium font-medium text-gray-700">Video</label>
-      <input type="text" name="youtubeLink" id="youtubeLink" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm font-medium border-gray-300 rounded-md">
+      <input type="text" value="{{$academy->youtubeLink}}" name="youtubeLink" id="youtubeLink" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm font-medium border-gray-300 rounded-md">
     </div>
   </div>
 

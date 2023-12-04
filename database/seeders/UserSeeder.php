@@ -24,10 +24,10 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Rafif',
-            'email' => 'zeonkunix@gmail.com',
+            'email' => 'lalalulu11820@gmail.com',
             'password' => bcrypt('password'),
             'avatar' => 'profile.png',
-            'role_id' => 1,
+            'role_id' => 2,
             'alamat' => 'Jl. Raya Cikarang - Cibarusah, Cikarang Utara, Bekasi',
         ]);
 
