@@ -108,4 +108,45 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883
 https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Jobs/SendEmailToUser.php#L14-L43
 
 ## Jumlah Fitur
+<!-- page -->
+- [x] Home Page
+- [x] Dashboard Page
+- [x] Login Page
+- [x] Register Page
+- [x] Landing Page
+- [x] Single Product Page
+- [x] Academy Page
+- [x] Single Academy Page
+- [x] Single Academy Page
+- [x] Consultation Page
+- [x] Dokter Detail Page
+- [x] Live Chat Page
+- [x] Profile Page
+- [x] Admin Page
+- [x] Create Category Page
+- [x] Create Type Page
+- [x] CUD Product Page (for admin)
+- [x] CUD Academy Page (for admin)
+- [x] Admin Order Page
+- [x] User Order Page
+- [x] Show Available Products
+- [x] Search Product 
+- [x] Product Review
+- [x] Product Rating
+- [x] Product Buy
+- [x] Product Carting
+- [x] Product Payment by Payment Gateway Xendit
+- [x] Show Available Academy
+- [x] Join and View Academy
+- [x] Show Available Vets
+- [x] Consult Payment by Payment Gateway Xendit
+- [x] Consult Live Chat
+- [x] Pagination
+
+
+
+
+
+
+
 
