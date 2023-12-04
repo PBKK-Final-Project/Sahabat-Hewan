@@ -132,10 +132,10 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/007e24b827886c860ef760d
 - [x] Live Chat Page
 - [x] Profile Page
 - [x] Admin Page
-- [x] Create Category Page
-- [x] Create Type Page
-- [x] CUD Product Page (for admin)
-- [x] CUD Academy Page (for admin)
+- [x] Create Category
+- [x] Create Type 
+- [x] CUD Product (for admin)
+- [x] CUD Academy (for admin)
 - [x] Admin Order Page
 - [x] User Order Page
 - [x] Show Available Products
@@ -156,7 +156,7 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/007e24b827886c860ef760d
 - [x] Order Product Email
 
 
-
+## Deployment: https://sahabat-hewan.be.sexy/
 
 
 
