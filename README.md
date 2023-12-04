@@ -22,3 +22,6 @@
 - [x] Jobs Scheduling Queue
 - [x] Jumlah Fitur
 
+## Laravel Route
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/b005cb7e6e1344a9e09215b7c48eaae18aaddc83/routes/web.php#L19-L150
