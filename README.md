@@ -134,8 +134,8 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/007e24b827886c860ef760d
 - [x] Admin Page
 - [x] Create Category
 - [x] Create Type 
-- [x] CUD Product (for admin)
-- [x] CUD Academy (for admin)
+- [x] CRUD Product (for admin)
+- [x] CRUD Academy (for admin)
 - [x] Admin Order Page
 - [x] User Order Page
 - [x] Show Available Products
