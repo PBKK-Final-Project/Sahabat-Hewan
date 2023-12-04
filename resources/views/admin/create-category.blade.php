@@ -118,21 +118,22 @@ $(document).ready(function () {
 })
 </script>
 
-<div class="flex mx-auto w-[40rem] ">
+<div class="flex pt-28 mx-auto w-[40rem] ">
   {{-- create input and button --}}
   <div class="flex flex-col gap-y-5 w-full">
     <div class="flex flex-col gap-y-2">
       <label for="category" class="font-rubik font-[400] text-[30px]">
         Category
       </label>
-      <input type="text" name="category" id="category" class="border-2 border-gray-500 rounded-lg px-5 py-2">
+      <input type="text" name="category" id="category" class="border-2 border-gray-500 rounded px-5 py-2">
     </div>
-
-    <button type="submit" id="btn-create" class="px-10 py-2 rounded-xl bg-[#443E7C] font-rubik font-[400] text-white text-[30px] flex justify-center items-center">
+    {{-- <button type="submit" id="btn-create" class="px-10 py-2 rounded-xl bg-[#443E7C] font-rubik font-[400] text-white text-[30px] flex justify-center items-center">
       Create
-    </button>
+    </button> --}}
+    <button type="submit" id="btn-create" class="font-medium btn bg-purple-400 h-10 px-6 hover:bg-yellow-800 text-white rounded">
+    Create
+  </button>
   </div>
-
 </div>
 
 <div class="w-full mt-10 px-10 grid grid-cols-3 gap-x-20 gap-y-20 justify-items-center items-center grid-flow-row">
