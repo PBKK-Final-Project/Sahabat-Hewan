@@ -25,3 +25,87 @@
 ## Laravel Route
 
 https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/b005cb7e6e1344a9e09215b7c48eaae18aaddc83/routes/web.php#L19-L150
+
+## Laravel Controller
+
+- example
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Http/Controllers/PaymentController.php#L20-L145
+
+## Overview Blade - Request Validation Response
+
+- Login Validation Failed
+
+![image](https://github.com/PBKK-Final-Project/Sahabat-Hewan/assets/89715780/5a9e85ff-4b64-4b74-9c90-9b88b3e895ce)
+
+- Update Product Status
+
+![image](https://github.com/PBKK-Final-Project/Sahabat-Hewan/assets/89715780/05cad51f-f29b-4ef5-a6f0-069b8cdd8675)
+
+## Database
+
+- example (payment table migration)
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/database/migrations/2023_11_08_223633_create_payments_table.php#L12-L33
+
+
+
+## Model
+
+- example (Product Model)
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Models/Product.php#L10-L55
+
+
+## Eloquent/Query Builder
+
+- example (ProductController)
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Http/Controllers/ProductController.php#L83C12-L120
+
+## DB Relationship
+
+- example (Product Model)
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Models/Product.php#L10-L55
+
+## Seeder
+
+- example (UserSeeder)
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/database/seeders/UserSeeder.php#L16-L46
+
+## Factory
+
+- example (ProductFactory)
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/database/factories/ProductFactory.php#L17-L31
+
+## Laravel auth (Breeze Blade)
+
+- RegisterUserController (Registrasi)
+
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Http/Controllers/Auth/RegisteredUserController.php#L31-L54
+
+- AuthenticatedSessionController (Login)
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Http/Controllers/Auth/AuthenticatedSessionController.php#L26-L33
+
+
+## Onion arch
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/tree/main/app/Http/Module/Academy
+
+## Jobs Scheduling Queue
+
+- Scheduling
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Console/Kernel.php#L15-L19
+
+- Jobs Queue
+
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Jobs/SendEmailToUser.php#L14-L43
+
+## Jumlah Fitur
+
