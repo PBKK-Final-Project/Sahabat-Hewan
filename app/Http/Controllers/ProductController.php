@@ -13,18 +13,18 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products = Cache::remember('products', 60, function () {
-            return Product::with(['categories', 'types', 'product_reviews', 'ratings'])->get();
+        $products = Cache::remember('product-' . request('page', 1), 20, function () {
+            return Product::with(['categories', 'types', 'product_reviews', 'ratings'])->latest()->paginate(5);
         });
-        
+
         return view('shop.index', ['products' => $products]);
     }
 
     public function getAllProducts()
     {
 
-        $products = Cache::remember('products', 60, function () {
-            return Product::with(['categories', 'types', 'product_reviews', 'ratings'])->get();
+        $products = Cache::remember('product-' . request('page', 1), 60, function () {
+            return Product::with(['categories', 'types', 'product_reviews', 'ratings'])->paginate(5);
         });
         
         return response()->json([
@@ -198,7 +198,7 @@ class ProductController extends Controller
 
     public function products()
     {
-        $products = Product::with(['categories', 'types', 'product_reviews'])->get();
+        $products = Product::with(['categories', 'types', 'product_reviews'])->paginate(5);
         
         return view('admin.products', ['products' => $products]);
     }

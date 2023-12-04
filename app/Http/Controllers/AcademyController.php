@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Academy;
+use Illuminate\Support\Facades\Cache;
 
 class AcademyController extends Controller
 {
     public function index()
     {
         $academies = Academy::all();
+
+        $academies = Cache::remember('academy-' . request('page', 1), 20, function () {
+            return Academy::latest()->paginate(3);
+        });
+
         return view('academy.academy', ['academies' => $academies]);
     }
 

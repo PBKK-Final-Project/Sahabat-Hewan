@@ -46,5 +46,12 @@
         @endforeach
     </div>
 </div>
+
+<div class="w-[40rem] mx-auto ">
+
+    {{ $academies->links()  }}
+  
+  </div>
+  
 @include('footer.footer')
 @endsection

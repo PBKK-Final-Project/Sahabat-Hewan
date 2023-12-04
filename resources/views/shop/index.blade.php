@@ -372,6 +372,12 @@ $.ajaxSetup({
   </div>
 </div>
 
+<div class="w-[40rem] mx-auto ">
+
+  {{ $products->links()  }}
+
+</div>
+
 <footer class="flex flex-row justify-start items-start px-10 py-10 gap-x-20">
   <div class="flex flex-col gap-y-5 justify-center items-stretch ">
     <div class="flex flex-row justify-center items-end gap-x-5">
