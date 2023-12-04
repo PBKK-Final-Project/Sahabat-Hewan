@@ -11,9 +11,11 @@ class AcademyController extends Controller
         $academies = Academy::all();
         return view('academy.academy', ['academies' => $academies]);
     }
-    public function singleAcademy(Academy $article)
+
+    public function show($slug)
     {
-        return view('academy.singleacademy', ['academy' => $article]);
+        $academy = Academy::where('slug', $slug)->first();
+        return view('academy.singleacademy', ['academy' => $academy]);
     }
 
     public function create()
@@ -23,9 +25,9 @@ class AcademyController extends Controller
 
     public function edit($id)
     {
-        $academies = Academy::find($id);
+        $academy = Academy::find($id);
         // dd($product);
-        return view('admin.edit-academy', ['academy' => $academies]);
+        return view('admin.edit-academy', ['academy' => $academy]);
     }
 
     public function adminAcademy()
@@ -84,61 +86,60 @@ class AcademyController extends Controller
         return redirect('/academy');
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $request->validate(
-            [
-                'title' => 'required',
-                'description' => 'required',
-                'price' => 'required',
-                'duration' => 'required',
-                'level' => 'required',
-                'instructor' => 'required',
-                'category' => 'required',
-                'additional_materials' => 'required',
-                'certificate' => 'required',
-                'consult' => 'required',
-                'youtubeLink' => 'required',
-            ]
-        );
+        $academy = Academy::find($id);
+
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'duration' => 'required',
+            'level' => 'required',
+            'instructor' => 'required',
+            'category' => 'required',
+            'additional_materials' => 'required',
+            'certificate' => 'required',
+            'consult' => 'required',
+            'youtubeLink' => 'required',
+        ]);
 
         $filename = '';
-        if($request->file('image'))
+        if ($request->file('image'))
         {
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
             ]);
 
-            $filename = 'product' . time() . '_' . rand(0, 999) . '.' . $request->file('image')->extension();
+            $filename = 'academy-' . time() . '_' . rand(0, 9999) . '.' . $request->file('image')->extension();
 
-            $request->file('image')->storeAs('/public/product/images', $filename);
-
+            $request->file('image')->storeAs('/public/academy/images', $filename);
         }
 
-        $academy = Product::find($request->id);
         $academy->title = $request->title;
-        $academy->instructor = $request->instructor;
-        $academy->level =  $request->level;
-        $academy->category = $request->category;
-        $academy->certificate = $request->certificate;
-        $academy->consult = $request->consult;
         $academy->description = $request->description;
-        $academy->additional_materials = $request->additional_materials;
         $academy->price = $request->price;
         $academy->duration = $request->duration;
+        $academy->level = $request->level;
+        $academy->instructor = $request->instructor;
+        $academy->category = $request->category;
+        $academy->additional_materials = $request->additional_materials;
+        $academy->certificate = $request->certificate;
+        $academy->consult = $request->consult;
         $academy->youtubeLink = $request->youtubeLink;
+        $academy->image = $filename;
 
-        // if($filename != '')
-        // {
-        //     $oldImage = $product->image;
-        //     if($oldImage != '')
-        //     {
-        //         unlink(storage_path('\app\public\product\images\\' . $oldImage));
-        //     }
-        //     $product->image = $filename;
-        // }
-        $product->save();
+        $academy->save();
 
-        return redirect('/admin-academy');
+        return redirect('/academy');
     }
+
+    public function destroy($id)
+    {
+        $academy = Academy::find($id);
+        $academy->delete();
+
+        return redirect('/academy');
+    }
+
 }

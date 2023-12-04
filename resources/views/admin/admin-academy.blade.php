@@ -27,7 +27,7 @@
                         <tr class="border">
                             <td class="py-6 text-center border">{{ $academy->id }}</td>
                             <td class="text-center justify-center border">
-                                <img class="mx-auto" src="/images/{{ $academy->image }}" width="100px" height="80px">
+                                <img class="mx-auto" src="storage/academy/images/{{ $academy->image }}" width="100px" height="80px">
                             </td>                            
                             <td class="border">{{ $academy->title }}</td>
                             <td class="text-center border">{{ $academy->price }}</td>
@@ -36,14 +36,16 @@
                             <td class="text-center border">{{ $academy->level }}</td>
                             <td class="text-center border">{{ $academy->youtubeLink }}</td>
                             <td class="py-6 text-center justify-center border">
-                                <form action="#" method="POST">
+                                <div class="flex flex-row gap-x-5 justify-center items-center">
                                     <button class="bg-blue-900 py-2 mx-2 w-auto px-4 hover:bg-black text-white rounded">
                                         <a href="/edit-academy/{{ $academy->id }}">Edit</a>
                                     </button>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger mx-2 bg-red-900 py-2 px-4 w-auto hover:bg-black text-white rounded">Delete</button>
-                                </form>
+                                    <form action="/delete-academy/{{ $academy->id }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger mx-2 bg-red-900 py-2 px-4 w-auto hover:bg-black text-white rounded">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                             
                         </tr>

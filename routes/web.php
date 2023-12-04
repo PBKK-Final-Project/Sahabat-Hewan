@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/consult', [ConsultationController::class, 'index']);
 
     Route::get('/academy', [AcademyController::class, 'index']);
-    Route::get('/academy/{article:slug}', [AcademyController::class, 'singleAcademy']);
+    Route::get('/academy/{slug}', [AcademyController::class, 'show']);
     
     Route::get('/chat', function () {
         return view('chat.index');
@@ -119,14 +119,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/update-shipping-status/{id}', [OrderController::class,'updateShippingStatus']);
 
         Route::get('/create-academy', [AcademyController::class, 'create']); 
-        Route::post('/create-academy', [AcademyController::class,'store']);
         Route::get('/admin-academy', [AcademyController::class,'adminAcademy']);
 
         Route::delete('/delete-academy/{id}', [AcademyController::class,'destroy']);
         Route::get('/edit-academy/{id}', [AcademyController::class,'edit']);
         Route::post('/edit-academy/{id}', [AcademyController::class, 'update']);
 
-        // Route::post('/create-academy/{article:slug}', [AcademyController::class, 'storeAcademy']);
 
         foreach (scandir($path = app_path('Http\Module')) as $dir) {
             if (file_exists($filepath = "{$path}/{$dir}/Academy/Presentation/web.php")) {
@@ -149,10 +147,6 @@ Route::middleware('auth')->group(function () {
 
 
 });
-
-// Route::get('/cart', function () {
-//     return view('shop.cart-page');
-// });
 
 
 
