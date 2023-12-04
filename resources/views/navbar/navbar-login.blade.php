@@ -28,7 +28,7 @@
     })
   })
 </script>
-{{-- @include('navbar.navbar') --}}
+@include('navbar.navbar')
 {{-- <div id="toast-interactive" class="mt-16 w-full max-w-[30rem] p-4 mx-auto text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400 z-40" role="alert">
   <div class="flex">
       <div class="ml-3 text-sm font-medium">

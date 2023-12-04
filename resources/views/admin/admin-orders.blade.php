@@ -49,7 +49,7 @@
 
 
 
-<div class="w-[80%] mx-auto">
+<div class="w-[80%] mx-auto mt-32">
   @php
     $i = 1;
   @endphp
@@ -95,7 +95,7 @@
         <div class="w-full flex flex-row px-5 py-5  border-gray-400 border-[4px] rounded-lg shadow-md justify-start items-center gap-x-10">
           {{-- show image --}}
           <div class="w-[30%] h-[300px]  rounded-lg">
-            <img src="/storage/product/images/product1700504677_883.png" alt="" class="w-full h-full object-contain">
+            <img src="/storage/product/images/{{ $order_product->products->image }}" alt="" class="w-full h-full object-contain">
           </div>
           <div class="flex flex-col justify-center items-start">
             <h1 class="font-rubik font-[700] text-black text-[24px]">{{$order_product->products->name}}</h1>

@@ -1,6 +1,12 @@
 @include('admin.admin-dashboard');
 
-<div class="grid grid-cols-3 w-full min-h-screen  justify-items-center items-center gap-x-5 mt-24 p-5 gap-y-14 grid-flow-row">
+<div class="mt-32">
+  <button class="font-medium btn bg-purple-400 h-10 px-6 hover:bg-black text-white rounded">
+  	<a href="/create-product">Add Product</a>
+  </button>
+  
+  <div class="grid grid-cols-3 w-full min-h-screen  justify-items-center items-center gap-x-5  p-5 gap-y-14 grid-flow-row">
+	
 
   @foreach ($products as $product)
     <div class="flex flex-col w-full bg-gray-200 shadow-md rounded-xl px-5 py-5 justify-start items-start gap-y-5">
@@ -22,6 +28,10 @@
     </div>
   @endforeach
 </div>
+</div>
+
+
+
 
 <div class="w-[40rem] mx-auto ">
 
