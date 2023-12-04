@@ -4,13 +4,33 @@
 @include('navbar.navbar')
 @include('navbar.navbar-login')
 
-<div class="bg-white mt-[400px] my-32 bg-cover bg-no-repeat w-full  z-10">
-  <h1 class="font-rubik font-[700] text-[100px] text-black mx-auto text-center uppercase">
-    let's <span class="text-[#B77CD7]">consult</span> 
-  </h1>
-</div>
+<h1 class="pt-[290px] mb-4 text-8xl font-baloo font-[700] text-[3rem] text-center text-black uppercase" style="letter-spacing: 2px;">
+  let's <span class="text-[#B77CD7]">consult</span>
+</h1>
+<p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400 text-center">Feel free to share and discuss any concerns you may have regarding your beloved furry friend.</p>
+    {{-- <div class="bg-white mt-[400px] my-32 bg-cover bg-no-repeat w-full  z-10">
+      <h1 class="font-rubik font-[700] text-[100px] text-black mx-auto text-center uppercase">
+        let's <span class="text-[#B77CD7]">consult</span> 
+      </h1>
+    </div> --}}
 
-<div class="w-[90%] mx-auto  flex flex-row px-20   justify-between items-center">
+<div class="w-[90%] mt-[-128px] mx-auto flex flex-row px-20 justify-between items-center">
+  @for ($i = 0; $i < 3; $i++)
+    <div class="w-[461px] h-[353px] px-10 gap-y-10 rounded-lg  flex flex-col justify-center items-center">
+      <a class="mt-[300px] p-4 text-1xl font-bold text-[18px] tracking-tight w-[324px] px-10 flex justify-center items-center font-inter text-[#FFEBFF] bg-purple-400 text-center rounded-t-lg">
+        Health Issue
+      </a>
+        <img class="mt-[-40px] w-auto h-[284px] object-bottom rounded-b-lg" src="/images/image-9.png" alt="" />
+        <div class="mt-[-300px]">
+        <p class="text-center font-inter px-10 font-[400] text-[25px] text-black">konsultasi tentang penyakit hewan anda...</p>
+        <a href="/chat" class="ml-[28.5px] mt-[128px] w-[324px] py-4 px-10 flex justify-center items-center font-bold font-inter text-[#FFEBFF] text-[18px] bg-purple-400 rounded-b-lg">
+          Chat Now
+        </a>
+        </div>
+    </div>
+  @endfor
+</div>
+{{-- <div class="w-[90%] py-4 mx-auto flex flex-row px-20 justify-between items-center">
   @for ($i = 0; $i < 3; $i++)
     <div class="w-[461px] h-[353px] px-10 bg-[#B9B7EA] gap-y-10 rounded-lg bg-[url('/public/images/image-9.png')] flex flex-col justify-center items-center bg-cover bg-no-repeat">
       <div class="w-[324px] px-10 flex justify-center items-center font-inter font-[700] text-[#443E7C] text-[40px] bg-white rounded-lg">
@@ -22,7 +42,7 @@
       </a>
     </div>
   @endfor
-</div>
+</div> --}}
 
 @php
   $loop = $consultations->count() / 4;
@@ -31,7 +51,7 @@
 @endphp
 
 
-<div class="w-[90%] mx-auto px-20">
+<div class="mt-[300px] first-letter:w-[90%] mx-auto px-20">
   @for ($i = 0; $i < $loop; $i++)
     <div class="w-full flex flex-col justify-center items-start my-10">
       <div class="bg-[#303030] my-10 h-[50px] flex justify-center items-center font-rubik font-[500] text-white text-[25px] rounded-lg px-10">

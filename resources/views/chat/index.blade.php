@@ -319,15 +319,13 @@ function scrollToBottom()
 
 <input type="hidden" name="meuser" id="" value="">
 
-
+@include('navbar.navbar')
 @include('navbar.navbar-login')
 
-
-<div class="bg-white my-32 mt-[300px] bg-cover bg-no-repeat w-full  z-10">
-  <h1 class="font-rubik font-[700] text-[100px] text-black mx-auto text-center uppercase">
-    Chat & <span class="text-[#B77CD7]">Inbox</span> 
-  </h1>
-</div>
+<h1 class="pt-[290px] mb-4 text-8xl font-baloo font-[700] text-[3rem] text-center text-black uppercase" style="letter-spacing: 2px;">
+  CHAT &  <span class="text-[#B77CD7]">INBOX</span>
+</h1>
+<p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400 text-center">Connect with our specialized doctors for an informative and personalized chat.</p>
 
 <div class="w-[70%] mx-auto my-20 bg-[#443E7C] flex flex-col justify-center items-start rounded-3xl px-10 py-5">
   <h1 class="font-rubik font-[500] text-white text-[70px] text-center capitalize">

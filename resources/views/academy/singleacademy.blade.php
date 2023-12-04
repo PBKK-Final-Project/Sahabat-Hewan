@@ -4,7 +4,7 @@
 
 <div class="relative pt-24 text-center">
     <div class="absolute inset-0">
-        <img class="w-full h-[220px] object-cover" src="{{ $academy->image }}" alt="Background Image">
+        <img class="w-full h-[220px] object-cover" src="/storage/academy/images/{{ $academy->image }}" alt="Background Image">
         <div class="w-full h-[220px] absolute inset-0 bg-black opacity-30"></div>
     </div>
 
@@ -33,7 +33,7 @@
 </div>
 
 <!-- New content about members, levels, certificates, and consultations -->
-<div class="mt-[-24px] grid grid-cols-4 items-center mx-auto max-w-screen-lg"> <!-- Added mx-auto and max-w-screen-lg for centering and limiting width -->
+<div class="mt-[-24px] grid grid-cols-5 items-center mx-auto max-w-screen-lg"> <!-- Added mx-auto and max-w-screen-lg for centering and limiting width -->
     <!-- Member information -->
     <div class="text-center">
         <h2 class="text-black mb-2">Members</h2>
@@ -71,13 +71,23 @@
             <img src="/images/no.svg" alt="Consult No" class="mx-auto">
         @endif
     </div>
+
+    <!-- Duration information -->
+    <div class="text-center">
+        <h2 class="text-black mb-2">Duration</h2>
+        <p class="text-black"><strong>{{ $academy->duration }}</strong></p>
+    </div>
 </div>
 
 <div class="px-20 mt-10 grid grid-cols-1 lg:grid-cols-8 gap-6">
     <!-- youtube (4/8 width) -->
     <section id="about" class="lg:col-span-5 rounded overflow-hidden">
-        <iframe class="w-full h-96" src="{{ $academy->youtubeLink }}" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+        @php
+            $videoId = substr($academy->youtubeLink, strpos($academy->youtubeLink, '=') + 1);
+        @endphp
+        <iframe class="w-full h-96" src="https://www.youtube.com/embed/{{ $videoId }}" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
     </section>
+    
     
 
     <!-- Description (4/8 width) -->
