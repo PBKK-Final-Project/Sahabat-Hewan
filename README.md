@@ -61,7 +61,7 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883
 
 - example (ProductController)
 
-https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Http/Controllers/ProductController.php#L83C12-L120
+https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/1d231c7056028c6af8f3883e1c0716cb52649330/app/Http/Controllers/ProductController.php#L83-L120
 
 ## DB Relationship
 
