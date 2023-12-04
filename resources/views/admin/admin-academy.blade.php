@@ -5,7 +5,7 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="pt-6 text-gray-900 dark:text-gray-100">
                 <button class="font-medium btn bg-purple-400 h-10 px-6 hover:bg-black text-white rounded">
-                    <a href="/create-academy">Add New Product</a>
+                    <a href="/create-academy">Add New Academy</a>
                 </button>
 
                 <table class="table-auto my-4 border border-collapse">
