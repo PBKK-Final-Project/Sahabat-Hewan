@@ -118,8 +118,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/edit-product/{id}', [ProductController::class,'update']);
         Route::post('/update-shipping-status/{id}', [OrderController::class,'updateShippingStatus']);
 
-        Route::get('/create-academy', [AcademyController::class, 'getAcademy']);
-        // Route::get('/admin-academy', [AcademyController::class,'Academies']);
+        Route::get('/create-academy', [AcademyController::class, 'create']); 
+        Route::post('/create-academy', [AcademyController::class,'store']);
+        Route::get('/admin-academy', [AcademyController::class,'adminAcademy']);
+
+        Route::delete('/delete-academy/{id}', [AcademyController::class,'destroy']);
+        Route::get('/edit-academy/{id}', [AcademyController::class,'edit']);
+        Route::post('/edit-academy/{id}', [AcademyController::class, 'update']);
 
         // Route::post('/create-academy/{article:slug}', [AcademyController::class, 'storeAcademy']);
 

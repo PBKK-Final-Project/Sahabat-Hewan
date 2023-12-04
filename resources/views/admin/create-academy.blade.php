@@ -1,6 +1,6 @@
 @include('admin.admin-dashboard');
 
-<form action="/create-academy" method="POST" class="w-[90%] flex flex-col gap-y-5 mx-auto px-5 py-5 mt-10" enctype="multipart/form-data">
+<form action="/create-academy" method="POST" class="w-[90%] mt-24 flex flex-col gap-y-5 mx-auto px-5 py-5" enctype="multipart/form-data">
   @csrf
   <div class="w-full flex flex-row gap-x-5 justify-center items-center">
     <div class="w-[50%]">
