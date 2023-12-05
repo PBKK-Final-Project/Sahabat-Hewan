@@ -7,6 +7,9 @@
 | Dimas Fadilah Akbar   | 5025211010 | https://github.com/dimss113 |
 | Andrian Tambunan | 5025211018 | https://github.com/AndrianTambunan   |
 
+## Link Presentasi
+https://www.youtube.com/watch?v=FpjmP6Tix9Y
+
 ## Poin Penilaian
 
 - [x] Laravel route
@@ -163,8 +166,6 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/007e24b827886c860ef760d
 
 
 ## Deployment: https://sahabat-hewan.be.sexy/
-## Link Youtube: https://www.youtube.com/watch?v=FpjmP6Tix9Y
-
 
 ## Referensi and services
 
