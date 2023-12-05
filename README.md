@@ -164,7 +164,17 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/007e24b827886c860ef760d
 
 ## Deployment: https://sahabat-hewan.be.sexy/
 
+## Referensi and services
 
+- https://laravel.com/docs/10.x
+- https://github.com/xendit/xendit-php
+- https://laracasts.com/discuss/channels/laravel/how-to-cache-laravel-paginate
+- https://jquery.com/
+- https://pusher.com/
+- https://mail.google.com/
+- https://github.com/laravel/echo
+- https://github.com/pusher/pusher-js
+- http:://www.xendit.co
 
 
 
