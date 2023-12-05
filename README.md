@@ -174,8 +174,8 @@ https://github.com/PBKK-Final-Project/Sahabat-Hewan/blob/007e24b827886c860ef760d
 - https://mail.google.com/
 - https://github.com/laravel/echo
 - https://github.com/pusher/pusher-js
-- http:://www.xendit.co
-
+- https://www.xendit.co
+- https://hosthatch.com/
 
 
 
