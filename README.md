@@ -7,6 +7,7 @@
 | Dimas Fadilah Akbar   | 5025211010 | https://github.com/dimss113 |
 | Andrian Tambunan | 5025211018 | https://github.com/AndrianTambunan   |
 
+## Poin Penilaian
 
 - [x] Laravel route
 - [x] Laravel controller
@@ -21,6 +22,11 @@
 - [x] Onion arch
 - [x] Jobs Scheduling Queue
 - [x] Jumlah Fitur
+
+## Physical Data Model
+
+![Sahabat-hewan-2023-12-05_10-37](https://github.com/PBKK-Final-Project/Sahabat-Hewan/assets/89715780/f0cd32c2-6fbd-4baf-9a2c-80a43be4c5e6)
+
 
 ## Laravel Route
 
